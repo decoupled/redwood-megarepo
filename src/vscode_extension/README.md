@@ -8,4 +8,4 @@ By default, the Redwood VSCode extension will use the language server from the i
 
 There is an alternative, experimental language server that is bundled with the extension. To turn it on just set
 
-redwoodjs.gocrazy = true
+TODO: for now we're always turning on the newer version of the language server. Review this.
