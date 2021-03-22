@@ -1,0 +1,3 @@
+- This repo contains a new version of the Redwood.js VSCode extension and the `@redwoodjs/structure` package.
+- It is organized as a `megarepo` - a simpler project layout that fixes many of the shortcomings of monorepos
+- It will be merged into the Redwood.js codebase once we stabilize the code. For now, it is undergoing massive changes on a daily basis
