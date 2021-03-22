@@ -1,0 +1,10 @@
+{"event":"start"}
+,
+{"event":"exit","code":0,"signal":null}
+,
+{"event":"start","time":1598610439782},
+{"event":"exit","code":0,"signal":null,"time":1598610439792},
+{"event":"start","time":1598610483266,"pid":70665},
+{"event":"exit","code":0,"signal":null,"time":1598610483277,"pid":70665},
+{"event":"start","cmd":"ls","args":[],"time":1598610603039,"pid":70745},
+{"event":"exit","code":0,"signal":null,"time":1598610603048,"pid":70745},

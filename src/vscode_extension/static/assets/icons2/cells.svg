@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>cells</title>
+    <desc>Created with Sketch.</desc>
+    <g id="cells" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M9.75,3 L9.75,7.375 L1,7.375 L1,3 L9.75,3 Z M8.875,6.5 L8.875,3.875 L1.875,3.875 L1.875,6.5 L8.875,6.5 Z M10.625,3 L15,3 L15,7.375 L10.625,7.375 L10.625,3 Z M14.125,6.5 L14.125,3.875 L11.5,3.875 L11.5,6.5 L14.125,6.5 Z M6.25,12.625 L6.25,8.25 L15,8.25 L15,12.625 L6.25,12.625 Z M7.125,9.125 L7.125,11.75 L14.125,11.75 L14.125,9.125 L7.125,9.125 Z M1,12.625 L1,8.25 L5.375,8.25 L5.375,12.625 L1,12.625 Z M1.875,9.125 L1.875,11.75 L4.5,11.75 L4.5,9.125 L1.875,9.125 Z" id="x" fill="#989898" fill-rule="nonzero"></path>
+    </g>
+</svg>

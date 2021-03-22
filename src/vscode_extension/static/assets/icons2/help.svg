@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>help</title>
+    <g id="help" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" stroke="#979797" cx="8" cy="8" r="7"></circle>
+        <text id="?" font-family="SegoeUI-Semibold, Segoe UI" font-size="14" font-weight="500" fill="#989898">
+            <tspan x="5" y="13">?</tspan>
+        </text>
+    </g>
+</svg>
