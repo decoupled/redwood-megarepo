@@ -1,6 +1,6 @@
 export interface RWProjectOptions {
   projectRoot: string
-  host: Host
+  host?: Host
 }
 
 /**
@@ -14,7 +14,7 @@ export class RWProject extends BaseNode implements OutlineInfoProvider {
   parent = undefined
 
   get host() {
-    return this.opts.host
+    return this.opts.host ?? new DefaultHost()
   }
 
   get projectRoot() {
@@ -346,7 +346,7 @@ import { ts_findTSConfig } from "src/x/ts/ts_findTSConfig"
 import { URL_fromFile } from "src/x/url/URL_fromFile"
 import { Command_cli, Command_open } from "src/x/vscode"
 import * as tsm from "ts-morph"
-import { Host } from "../hosts"
+import { DefaultHost, Host } from "../hosts"
 import { BaseNode } from "../ide"
 import { RWCell } from "./RWCell"
 import { RWComponent } from "./RWComponent"

@@ -1,6 +1,7 @@
-import { LazyGetter as lazy } from "lazy-get-decorator"
 import { memoize } from "lodash"
 import { observable, when } from "mobx"
+import { getConfig } from "src/internal"
+import { lazy, memo } from "src/x/decorators"
 import { BrowserModel } from "./BrowserModel"
 import { BuildServerModel } from "./BuildServerModel"
 import { DevServerModel } from "./DevServerModel"
@@ -8,11 +9,20 @@ import { DevServerModel } from "./DevServerModel"
 export class ProjectModel {
   private constructor(public readonly dir: string) {}
 
+  @memo() getConfig(){
+    return getConfig(this.dir + 'redwood.toml')
+  }
+
+  @lazy() get web_port(){
+    return this.getConfig().web.port
+  }
+
   get framework() {
     return "redwood"
   }
+  
   get openURL() {
-    return `http://localhost:8910/`
+    return `http://localhost:${this.web_port}/`
   }
 
   @observable browserReady = false

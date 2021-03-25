@@ -12,6 +12,7 @@ export class DevServerModel implements DevServerUIModel {
   constructor(private project: ProjectModel) {}
   @computed get status(): DevServerStatus {
     now(300)
+    if (this.project.browserReady) return 'started'
     if (!this.devCommandIsRunning) return "stopped"
     if (!this.project.browserReady) return "starting"
     return "started"
@@ -36,8 +37,7 @@ export class DevServerModel implements DevServerUIModel {
     )
 
     await new URLWatcher({
-      // TODO: get port from redwood.toml
-      url: `http://localhost:8910/`,
+      url: `http://localhost:${this.project.web_port}/`,
     }).waitForNextOK()
 
     this.project.browserReady = true

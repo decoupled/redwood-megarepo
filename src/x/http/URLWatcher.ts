@@ -66,3 +66,10 @@ export class URLWatcher {
     }
   }
 }
+
+
+{
+  await new URLWatcher({
+    url: `http://localhost:8910/`,
+  }).waitForNextOK()
+}
