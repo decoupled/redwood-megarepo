@@ -27,7 +27,7 @@ class ThumbServer {
     const app = express()
     //  localhost:7777/thumb?url=http://localhost:6543/docs/mypage
     app.get("/thumb", async (req, res) => {
-      const url = req.query.url ?? ""
+      const url = typeof req.query.url === "string" ? req.query.url : ""
       const isLocal = url.startsWith("http://localhost:")
       if (!isLocal) {
         return res
@@ -43,6 +43,8 @@ class ThumbServer {
         await page.goto(url, { waitUntil: "domcontentloaded" })
         await wait(100)
         const screenshot = await page.screenshot()
+        if (!(screenshot instanceof Buffer))
+          throw new Error("page.screenshot() failed")
         /*await*/ browser.close()
         sharp(screenshot)
           .resize({

@@ -7,7 +7,7 @@ export function vscode_run(
     cmd: string
   } & vscode.TerminalOptions
 ) {
-  return shell_wrapper_run_or_fail(opts.cmd, wrapped_cmd => {
+  return shell_wrapper_run_or_fail(opts.cmd, (wrapped_cmd) => {
     vscode_window_createTerminal_andRun({ ...opts, cmd: wrapped_cmd })
   })
 }

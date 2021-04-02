@@ -1,15 +1,15 @@
-import fs from 'fs'
+import fs from "fs"
 
-import merge from 'deepmerge'
-import toml from 'toml'
+import merge from "deepmerge"
+import toml from "toml"
 
-import { getConfigPath } from './paths'
+import { getConfigPath } from "./paths"
 
 export enum TargetEnum {
-  NODE = 'node',
-  BROWSER = 'browser',
-  REACT_NATIVE = 'react-native',
-  ELECTRON = 'electron',
+  NODE = "node",
+  BROWSER = "browser",
+  REACT_NATIVE = "react-native",
+  ELECTRON = "electron",
 }
 
 export interface NodeTargetConfig {
@@ -46,20 +46,20 @@ export interface Config {
 // https://github.com/redwoodjs/redwood/blob/d51ade08118c17459cebcdb496197ea52485364a/packages/core/config/webpack.common.js#L19
 const DEFAULT_CONFIG: Config = {
   web: {
-    host: 'localhost',
+    host: "localhost",
     port: 8910,
-    path: './web',
+    path: "./web",
     target: TargetEnum.BROWSER,
-    apiProxyPath: '/.netlify/functions',
+    apiProxyPath: "/.netlify/functions",
     apiProxyPort: 8911,
     experimentalFastRefresh: false,
   },
   api: {
-    host: 'localhost',
+    host: "localhost",
     port: 8911,
-    path: './api',
+    path: "./api",
     target: TargetEnum.NODE,
-    schemaPath: './api/prisma/schema.prisma',
+    schemaPath: "./api/prisma/schema.prisma",
   },
   browser: {
     open: false,
@@ -72,7 +72,7 @@ const DEFAULT_CONFIG: Config = {
  */
 export const getConfig = (configPath = getConfigPath()): Config => {
   try {
-    const rawConfig = fs.readFileSync(configPath, 'utf8')
+    const rawConfig = fs.readFileSync(configPath, "utf8")
     return merge(DEFAULT_CONFIG, toml.parse(rawConfig))
   } catch (e) {
     throw new Error(`Could not parse "${configPath}": ${e}`)

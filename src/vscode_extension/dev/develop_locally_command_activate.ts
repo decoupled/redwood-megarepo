@@ -2,9 +2,9 @@ import vscode from "vscode"
 import { NewJamstackProjectSourceString } from "../util/NewJamstackProjectSource"
 import {
   commands,
-
-  
-  develop_locally, FromCommandInvocation, Opts
+  develop_locally,
+  FromCommandInvocation,
+  Opts,
 } from "./develop_locally"
 import { init_hook_activate } from "./init_hook"
 
@@ -26,5 +26,4 @@ export function develop_locally_command_activate(ctx: vscode.ExtensionContext) {
       develop_locally(opts2, ctx)
     }
   )
-
 }

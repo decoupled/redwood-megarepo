@@ -7,11 +7,12 @@ export function express_listen_promise(
 ): Promise<Server> {
   return new Promise<Server>((resolve, reject) => {
     if (port) {
-      const server = app.listen(port, e => {
-        e ? reject(e) : resolve(server)
+      const server = app.listen(port, () => {
+        resolve(server)
+        //e ? reject(e) : resolve(server)
       })
     } else {
-      const server = app.listen(e => {
+      const server = app.listen((e) => {
         e ? reject(e) : resolve(server)
       })
     }

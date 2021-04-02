@@ -341,7 +341,7 @@ import {
   isLayoutFileName,
   isNotArtifact,
 } from "src/x/path"
-import { tsm_Project_redwoodFriendly } from "src/x/ts-morph2/tsm_Project_redwoodFriendly"
+import { tsm_Project_redwoodFriendly } from "src/x/ts-morph/tsm_Project_redwoodFriendly"
 import { ts_findTSConfig } from "src/x/ts/ts_findTSConfig"
 import { URL_fromFile } from "src/x/url/URL_fromFile"
 import { Command_cli, Command_open } from "src/x/vscode"

@@ -1,18 +1,14 @@
+import { memoize } from "lodash"
 import { userInfo } from "os"
 import { sep } from "path"
-
 import { lazy } from "src/x/decorators"
-import { memoize } from "lodash"
+import { vscode_extensions_getExtensionID } from "src/x/vscode/vscode_extensions_getExtensionID"
 import vscode from "vscode"
 import TelemetryReporter from "vscode-extension-telemetry"
 
-import { vscode_extensions_getExtensionID } from "src/x/vscode/vscode_extensions_getExtensionID"
-
-export const redwoodjs_vsc_telemetry_reporter2 = memoize(
-  (ctx: vscode.ExtensionContext) => {
-    return new Reporter(ctx)
-  }
-)
+export const telemetry_activate = memoize((ctx: vscode.ExtensionContext) => {
+  return new Reporter(ctx)
+})
 
 // most code taken from: https://github.com/Almenon/AREPL-vscode/blob/master/src/areplUtilities.ts
 

@@ -8,8 +8,8 @@ import {
 } from "src/x/Array"
 import { lazy, memo } from "src/x/decorators"
 import { basenameNoExt, followsDirNameConvention } from "src/x/path"
-import { createTSMSourceFile_cached } from "src/x/ts-morph"
-import { tsm_Project_redwoodFriendly } from "src/x/ts-morph2/tsm_Project_redwoodFriendly"
+import { tsm_SourceFile_create_cached } from "src/x/ts-morph/tsm_SourceFile_create"
+import { tsm_Project_redwoodFriendly } from "src/x/ts-morph/tsm_Project_redwoodFriendly"
 import { ts_findTSConfig } from "src/x/ts/ts_findTSConfig"
 import { URL_fromFile } from "src/x/url/URL_fromFile"
 import { ExtendedDiagnostic } from "src/x/vscode-languageserver-types"
@@ -271,7 +271,7 @@ export abstract class FileNode extends BaseNode {
       )
     if (typeof this.text === "undefined")
       throw new Error("undefined file " + this.filePath)
-    return createTSMSourceFile_cached(this.filePath, this.text!)
+    return tsm_SourceFile_create_cached(this.filePath, this.text!)
   }
 
   @lazy() get hasJSLikeExtension(): boolean {

@@ -1,21 +1,20 @@
-
 import {
   DocumentNode,
   GraphQLSchema,
   Location as GraphQLLocation,
-  parse as parseGraphQL
+  parse as parseGraphQL,
 } from "graphql"
 import {
   getHoverInformation,
   getOutline,
   getTokenAtPosition,
-  getTypeInfo
+  getTypeInfo,
 } from "graphql-language-service-interface"
 import { ContextToken } from "graphql-language-service-parser"
 import {
   IPosition as GQLLSPosition,
   Outline,
-  OutlineTree
+  OutlineTree,
 } from "graphql-language-service-types"
 import lineColumn from "line-column"
 import { lazy } from "src/x/decorators"

@@ -1,9 +1,9 @@
-import { mergeTypes } from "merge-graphql-schemas"
-import { BaseNode } from "../ide"
-import { lazy } from "src/x/decorators"
-import { RWProject } from "./RWProject"
-import { rootSchema_parsed } from "./util/rootSchema"
 import { buildSchema, GraphQLSchema } from "graphql"
+import { mergeTypes } from "merge-graphql-schemas"
+import { lazy } from "src/x/decorators"
+import { graphql_redwood_root_schema__parsed } from "src/x/graphql/graphql_redwood_root_schema"
+import { BaseNode } from "../ide"
+import { RWProject } from "./RWProject"
 
 export class RWGraphQLHelper extends BaseNode {
   constructor(public parent: RWProject) {
@@ -22,7 +22,7 @@ export class RWGraphQLHelper extends BaseNode {
   get mergedSchemaString(): string | undefined {
     try {
       const docs = [
-        rootSchema_parsed(),
+        graphql_redwood_root_schema__parsed(),
         ...this.parent.sdls.map((_) => _.schemaTag?.graphqlAST),
       ].filter((_) => typeof _ !== "undefined")
       const typeDefs = mergeTypes(docs, { all: true })

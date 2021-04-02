@@ -36,8 +36,6 @@ const projectRoot = "/tmp/ff/example-blog"
   }
 }
 
-
-
 function createExampleProject() {
   // "/Users/aldo/code/rw-app-for-testing-new-extension/redwoodblog"
   return new RWProject({ projectRoot, host: new DefaultHost() })

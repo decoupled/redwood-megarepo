@@ -1,10 +1,10 @@
 import { memoize } from "lodash"
 import { parse } from "graphql"
 
-export const rootSchema_parsed = memoize(() => parse(rootSchema))
+export const graphql_redwood_root_schema__parsed = memoize(() => parse(graphql_redwood_root_schema))
 
-// this is manually copied from the api package
-export const rootSchema = `
+// this was manually copied from the api package
+export const graphql_redwood_root_schema = `
 scalar Date
 scalar Time
 scalar DateTime

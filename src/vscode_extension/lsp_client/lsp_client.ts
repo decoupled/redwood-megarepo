@@ -12,7 +12,7 @@ import {
   LanguageClientOptions,
   ServerOptions,
   State,
-  TransportKind
+  TransportKind,
 } from "vscode-languageclient/node"
 import { log } from "../log"
 import { treeview_outline_setup } from "../treeview/outline/treeview_outline_setup"
@@ -227,4 +227,3 @@ function buildClientOptions(ctx: vscode.ExtensionContext) {
     },
   } as LanguageClientOptions
 }
-

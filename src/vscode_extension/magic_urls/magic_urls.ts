@@ -18,7 +18,13 @@ export function magic_urls_activate(ctx: vscode.ExtensionContext) {
       const command = str(q["command"])
       const install = str(q["install"])
       const degit = str(q["degit"]) === "true"
-      const extraOpts: ExtraOpts = { open, framework: 'redwood', command, install, degit }
+      const extraOpts: ExtraOpts = {
+        open,
+        framework: "redwood",
+        command,
+        install,
+        degit,
+      }
       develop_locally({ action: "FromMagicURL", source, extraOpts }, ctx)
     },
   })

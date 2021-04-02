@@ -1,7 +1,7 @@
 import { LanguageServer } from "lambdragon"
 import { RWLanguageServer } from "./RWLanguageServer"
 
-export const redwoodLanguageServerV2 = new LanguageServer({
+export const language_server = new LanguageServer({
   main: startLanguageServer,
 })
 
@@ -10,4 +10,3 @@ function startLanguageServer() {
   console.log("starting language server...")
   new RWLanguageServer().start()
 }
-

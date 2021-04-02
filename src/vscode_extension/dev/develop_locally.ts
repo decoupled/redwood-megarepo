@@ -14,7 +14,7 @@ import {
   NewJamstackProjectSource,
   NewJamstackProjectSourceString,
   NewJamstackProjectSource_autoPickDir,
-  NewJamstackProjectSource_parse
+  NewJamstackProjectSource_parse,
 } from "../util/NewJamstackProjectSource"
 import { NewJamstackProjectSource_prompt } from "../util/NewJamstackProjectSource_prompt"
 import { TargetDirSpecification } from "../util/TargetDirSpecification"
@@ -30,7 +30,7 @@ export const commands = {
     command: "redwoodjs.redwood.develop_locally",
     title: "Fetch and Develop Locally",
     category: "Redwood",
-  }
+  },
 }
 
 export function ___buildmeta___() {

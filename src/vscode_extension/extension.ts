@@ -1,7 +1,6 @@
-
 import { VSCodeExtension } from "lambdragon"
 import { join } from "path"
-import { redwoodLanguageServerV2 } from "src/language_server/redwoodLanguageServerV2"
+import { language_server } from "src/language_server/language_server"
 import vscode from "vscode"
 import merge from "webpack-merge"
 import { commands_contributes } from "./commands/commands"
@@ -24,7 +23,7 @@ export const redwoodVSCodeExtension = new VSCodeExtension({
   icon,
   contributes: contributes() as any,
   engines: { vscode: "^1.53.0" },
-  deps: [redwoodLanguageServerV2],
+  deps: [language_server],
   staticDir: join(__dirname, "static"),
 })
 
@@ -38,13 +37,12 @@ function main() {
   }
 }
 
-
 function contributes() {
   return merge([
     commands_contributes().contributes,
     lsp_treeview_contributes().contributes,
     treeview_workflow_contributes().contributes,
-    treeview_docs_contributes().contributes
+    treeview_docs_contributes().contributes,
   ])
 }
 

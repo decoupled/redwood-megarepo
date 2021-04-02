@@ -12,7 +12,7 @@ export class DevServerModel implements DevServerUIModel {
   constructor(private project: ProjectModel) {}
   @computed get status(): DevServerStatus {
     now(300)
-    if (this.project.browserReady) return 'started'
+    if (this.project.browserReady) return "started"
     if (!this.devCommandIsRunning) return "stopped"
     if (!this.project.browserReady) return "starting"
     return "started"

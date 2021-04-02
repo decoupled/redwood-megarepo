@@ -1,8 +1,7 @@
-
 import { existsSync } from "fs-extra"
 import { groupBy } from "lodash"
 import { dirname, join } from "path"
-import { redwoodLanguageServerV2 } from "src/language_server/redwoodLanguageServerV2"
+import { language_server } from "src/language_server/language_server"
 import { lazy } from "src/x/decorators"
 import * as vscode from "vscode"
 import { Location as LSPLocation } from "vscode-languageserver-types"
@@ -15,11 +14,10 @@ import { lsp_path_for_project } from "./lsp_client/lsp_path_for_project"
 import { new_version_message } from "./new_version_message"
 import { redwoodjs_vsc_enabled } from "./redwoodjs_vsc_enabled"
 import { statusbar } from "./statusbar/statusbar"
-import { redwoodjs_vsc_telemetry_reporter2 } from "./telemetry/telemetry"
+import { telemetry_activate } from "./telemetry/telemetry"
 import { treeview_docs_activate } from "./treeview/docs/treeview_docs"
 import { treeview_workflow_activate } from "./treeview/workflow/treeview_workflow"
 import { framework_version__installed } from "./util/framework_version__installed"
-
 
 export async function redwoodjs_vsc(ctx: vscode.ExtensionContext) {
   // new version check. we can get rid of this once the old version
@@ -28,7 +26,7 @@ export async function redwoodjs_vsc(ctx: vscode.ExtensionContext) {
     // stop all initialization
     return
   }
-  redwoodjs_vsc_telemetry_reporter2(ctx)
+  telemetry_activate(ctx)
   const manager = new RedwoodVSCProjectManager(ctx)
   ctx.subscriptions.push(manager)
   commands_activate(ctx)
@@ -89,9 +87,7 @@ class RedwoodVSCProject {
 
     statusbar(opts)
 
-    redwoodjs_vsc_telemetry_reporter2(
-      this.opts.ctx
-    ).event_redwoodProjectDetected({
+    telemetry_activate(this.opts.ctx).event_redwoodProjectDetected({
       redwoodVersion: this.redwoodVersion ?? "",
     })
 
@@ -115,9 +111,7 @@ class RedwoodVSCProject {
   @lazy()
   get lspServerPath() {
     if (USE_NEW_LANGUAGE_SERVER) {
-      return redwoodLanguageServerV2.getPathInVSCodeExtensionFolder(
-        this.ctx
-      )
+      return language_server.getPathInVSCodeExtensionFolder(this.ctx)
     }
     const p = lsp_path_for_project(this.projectRoot)
     if (!p) {
@@ -196,4 +190,3 @@ function getTopLevelRWTomlPath(): string | undefined {
     return rwPath
   }
 }
-

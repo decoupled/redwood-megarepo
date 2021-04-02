@@ -5,7 +5,7 @@ import glob from "glob"
 import * as tsm from "ts-morph"
 
 import { iter } from "src/x/Array"
-import { createTSMSourceFile_cached } from "src/x/ts-morph"
+import { tsm_SourceFile_create_cached } from "src/x/ts-morph/tsm_SourceFile_create"
 
 export function process_env_findAll(dir: string) {
   return iter(function* () {
@@ -17,7 +17,7 @@ export function process_env_findAll(dir: string) {
 export function process_env_findInFile(filePath: string, text: string) {
   if (!text.includes("process.env")) return []
   try {
-    return process_env_findInFile2(createTSMSourceFile_cached(filePath, text))
+    return process_env_findInFile2(tsm_SourceFile_create_cached(filePath, text))
   } catch (e) {
     return []
   }

@@ -9,18 +9,18 @@ import { DevServerModel } from "./DevServerModel"
 export class ProjectModel {
   private constructor(public readonly dir: string) {}
 
-  @memo() getConfig(){
-    return getConfig(this.dir + 'redwood.toml')
+  @memo() getConfig() {
+    return getConfig(this.dir + "redwood.toml")
   }
 
-  @lazy() get web_port(){
+  @lazy() get web_port() {
     return this.getConfig().web.port
   }
 
   get framework() {
     return "redwood"
   }
-  
+
   get openURL() {
     return `http://localhost:${this.web_port}/`
   }

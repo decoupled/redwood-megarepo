@@ -20,6 +20,8 @@ export async function puppeteer_get_thumb(url: string, thumbsDir: string) {
   const fname2x = fname_noext + "@2x.png"
   const screenshot = await page.screenshot()
   /*await*/ browser.close()
+  if (!(screenshot instanceof Buffer))
+    throw new Error("page.screenshot() failed")
 
   const buffer = await sharp(screenshot)
     .resize({ width: 200, withoutEnlargement: true })

@@ -1,11 +1,11 @@
-import fs from 'fs'
-import path from 'path'
+import fs from "fs"
+import path from "path"
 
-import { transform } from '@babel/core'
-import glob from 'glob'
-import { format } from 'prettier'
+import { transform } from "@babel/core"
+import glob from "glob"
+import { format } from "prettier"
 
-import { getPaths } from './paths'
+import { getPaths } from "./paths"
 
 /**
  * Converts all the TypeScript files in the `api` and `web` sides to JavaScript.
@@ -18,9 +18,9 @@ export const convertTsProjectToJs = (cwd = getPaths().base) => {
     const code = transformTSToJS(f)
     if (code) {
       fs.writeFileSync(
-        path.join(cwd, f.replace('.tsx', '.js').replace('.ts', '.js')),
+        path.join(cwd, f.replace(".tsx", ".js").replace(".ts", ".js")),
         code,
-        'utf8'
+        "utf8"
       )
       fs.unlinkSync(path.join(cwd, f))
     }
@@ -28,12 +28,12 @@ export const convertTsProjectToJs = (cwd = getPaths().base) => {
 
   try {
     fs.renameSync(
-      path.join(cwd, 'api/tsconfig.json'),
-      path.join(cwd, 'api/jsconfig.json')
+      path.join(cwd, "api/tsconfig.json"),
+      path.join(cwd, "api/jsconfig.json")
     )
     fs.renameSync(
-      path.join(cwd, 'web/tsconfig.json'),
-      path.join(cwd, 'web/jsconfig.json')
+      path.join(cwd, "web/tsconfig.json"),
+      path.join(cwd, "web/jsconfig.json")
     )
   } catch (e) {
     // I want the user to be able to run this command multiple times.
@@ -47,7 +47,7 @@ export const convertTsProjectToJs = (cwd = getPaths().base) => {
 export const typeScriptSourceFiles = (cwd: string) => {
   // TODO: When sides are expanded read the `api` and `web` string instead
   // of hard-coding them.
-  return glob.sync('{api,web}/src/**/*.{ts,tsx}', {
+  return glob.sync("{api,web}/src/**/*.{ts,tsx}", {
     cwd,
   })
 }
@@ -59,7 +59,7 @@ export const typeScriptSourceFiles = (cwd: string) => {
  * @param {string} file - The path to the TypeScript file.
  */
 export const transformTSToJS = (file: string) => {
-  const tsCode = fs.readFileSync(file, 'utf8')
+  const tsCode = fs.readFileSync(file, "utf8")
   const filename = path.basename(file)
 
   const result = transform(tsCode, {
@@ -68,7 +68,7 @@ export const transformTSToJS = (file: string) => {
     configFile: false,
     plugins: [
       [
-        '@babel/plugin-transform-typescript',
+        "@babel/plugin-transform-typescript",
         {
           isTSX: true,
           allExtensions: true,
@@ -81,12 +81,12 @@ export const transformTSToJS = (file: string) => {
   if (!result?.code) {
     return undefined
   }
-  return prettify(result.code, filename.replace(/\.ts$/, '.js'))
+  return prettify(result.code, filename.replace(/\.ts$/, ".js"))
 }
 
 export const prettierConfig = () => {
   try {
-    return require(path.join(getPaths().base, 'prettier.config.js'))
+    return require(path.join(getPaths().base, "prettier.config.js"))
   } catch (e) {
     return undefined
   }
@@ -99,14 +99,14 @@ export const prettierConfig = () => {
  * @param {string} filename
  */
 const prettierParser = (filename: string) => {
-  switch (path.extname(filename.replace('.template', ''))) {
-    case '.css':
-      return 'css'
-    case '.js':
-      return 'babel'
-    case '.ts':
-    case '.tsx':
-      return 'babel-ts'
+  switch (path.extname(filename.replace(".template", ""))) {
+    case ".css":
+      return "css"
+    case ".js":
+      return "babel"
+    case ".ts":
+    case ".tsx":
+      return "babel-ts"
     default:
       return undefined
   }
@@ -122,7 +122,7 @@ const prettierParser = (filename: string) => {
 export const prettify = (code: string, filename: string) => {
   const parser = prettierParser(filename)
   // Return unformatted code if we could not determine the parser.
-  if (typeof parser === 'undefined') {
+  if (typeof parser === "undefined") {
     return code
   }
 
