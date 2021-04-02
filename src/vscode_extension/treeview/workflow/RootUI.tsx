@@ -2,7 +2,7 @@ import { TreeItem } from "lambdragon"
 import { observer } from "mobx-react"
 import React from "react"
 import vscode from "vscode"
-import { ProjectModel } from "../dev/model/ProjectModel"
+import { ProjectModel } from "../../dev/model/ProjectModel"
 import { FrameworkUI } from "./FrameworkUI"
 import { WorkflowUI } from "./WorkflowUI"
 

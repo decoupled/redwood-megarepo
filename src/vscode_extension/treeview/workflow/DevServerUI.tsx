@@ -11,7 +11,7 @@ import { wait } from "src/x/Promise/wait"
 import { vscode_ThemeIcon_memo as icon } from "src/x/vscode/vscode_ThemeIcon_memo"
 import vscode from "vscode"
 import merge from "webpack-merge"
-import { buildLabelProps } from "./util/buildLabelProps"
+import { buildLabelProps } from "../util/buildLabelProps"
 
 // https://github.com/microsoft/vscode/issues/45119
 

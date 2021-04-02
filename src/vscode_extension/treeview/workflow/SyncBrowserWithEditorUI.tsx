@@ -1,7 +1,7 @@
 import { observable } from "mobx"
 import { observer } from "mobx-react"
 import React from "react"
-import { checkboxIcon } from "./util/checkboxIcon"
+import { checkboxIcon } from "../util/checkboxIcon"
 import { TreeItem } from "lambdragon"
 import vscode from "vscode"
 

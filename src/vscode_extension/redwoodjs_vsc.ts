@@ -1,9 +1,9 @@
 
 import { existsSync } from "fs-extra"
-import { lazy } from "src/x/decorators"
 import { groupBy } from "lodash"
 import { dirname, join } from "path"
-import { redwoodLanguageServerV2 } from "src/structure/language_server/redwoodLanguageServerV2"
+import { redwoodLanguageServerV2 } from "src/language_server/redwoodLanguageServerV2"
+import { lazy } from "src/x/decorators"
 import * as vscode from "vscode"
 import { Location as LSPLocation } from "vscode-languageserver-types"
 import { commands_activate } from "./commands/commands_activate"
@@ -16,9 +16,9 @@ import { new_version_message } from "./new_version_message"
 import { redwoodjs_vsc_enabled } from "./redwoodjs_vsc_enabled"
 import { statusbar } from "./statusbar/statusbar"
 import { redwoodjs_vsc_telemetry_reporter2 } from "./telemetry/telemetry"
-import { framework_version__installed } from "./util/framework_version__installed"
-import { treeview_workflow_initialize } from "./treeview/treeviews"
 import { treeview_docs_initialize } from "./treeview/docs/treeview_docs"
+import { treeview_workflow_initialize } from "./treeview/workflow/treeview_workflow"
+import { framework_version__installed } from "./util/framework_version__installed"
 
 
 export async function redwoodjs_vsc(ctx: vscode.ExtensionContext) {

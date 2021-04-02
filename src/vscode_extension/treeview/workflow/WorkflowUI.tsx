@@ -4,10 +4,10 @@ import { observer } from "mobx-react"
 import React from "react"
 import { vscode_ThemeIcon_memo as icon } from "src/x/vscode/vscode_ThemeIcon_memo"
 import vscode from "vscode"
-import { ProjectModel } from "../dev/model/ProjectModel"
+import { ProjectModel } from "../../dev/model/ProjectModel"
 import { menu_def_workflow } from "./menus"
 import { StepDevelopUI } from "./StepDevelopUI"
-import { buildLabelProps } from "./util/buildLabelProps"
+import { buildLabelProps } from "../util/buildLabelProps"
 
 @observer
 export class WorkflowUI extends React.Component<{

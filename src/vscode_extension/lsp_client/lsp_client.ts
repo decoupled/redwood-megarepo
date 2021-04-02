@@ -1,6 +1,6 @@
 import * as fs from "fs-extra"
 import { cloneDeep } from "lodash"
-import { xmethods } from "src/structure/language_server/xmethods"
+import { xmethods } from "src/language_server/xmethods"
 import { memo } from "src/x/decorators"
 import { URL_fromFile } from "src/x/url/URL_fromFile"
 import { vscode_window_createTerminal_andRun } from "src/x/vscode/vscode_window_createTerminal_andRun"

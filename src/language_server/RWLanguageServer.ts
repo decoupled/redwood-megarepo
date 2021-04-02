@@ -166,8 +166,8 @@ import {
   TextDocuments,
   TextDocumentSyncKind,
 } from "vscode-languageserver/node"
-import { HostWithDocumentsStore, IDEInfo } from "../ide"
-import { RWProject } from "../model"
+import { HostWithDocumentsStore, IDEInfo } from "../structure/ide"
+import { RWProject } from "../structure/model"
 import { lazy, memo } from "src/x/decorators"
 import { VSCodeWindowMethods_fromConnection } from "src/x/vscode"
 import { Connection_suppressErrors } from "src/x/vscode-languageserver"

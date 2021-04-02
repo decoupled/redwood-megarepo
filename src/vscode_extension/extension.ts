@@ -1,7 +1,7 @@
 
 import { VSCodeExtension } from "lambdragon"
 import { join } from "path"
-import { redwoodLanguageServerV2 } from "src/structure/language_server/redwoodLanguageServerV2"
+import { redwoodLanguageServerV2 } from "src/language_server/redwoodLanguageServerV2"
 import vscode from "vscode"
 import merge from "webpack-merge"
 import { commands_pjson } from "./commands/commands"
@@ -9,7 +9,7 @@ import { lsp_treeview_contributes } from "./lsp_client/treeview/consts"
 import { redwoodjs_vsc } from "./redwoodjs_vsc"
 import icon from "./static/redwoodjs_logo.svg"
 import { treeview_docs_contributes } from "./treeview/docs/treeview_docs"
-import { treeview_workflow_contributes } from "./treeview/treeviews"
+import { treeview_workflow_contributes } from "./treeview/workflow/treeview_workflow"
 
 // the build target for the extension
 export const redwoodVSCodeExtension = new VSCodeExtension({

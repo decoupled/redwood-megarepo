@@ -93,11 +93,11 @@ export class CommandsManager {
 
 import { URL_toFile } from "src/x/url/URL_toFile"
 import { ExecuteCommandOptions } from "vscode-languageserver"
-import { command_builder } from "../interactive_cli/command_builder"
-import { redwood_gen_dry_run as dry_run } from "../interactive_cli/dry_run"
-import { RedwoodCommandString } from "../interactive_cli/RedwoodCommandString"
-import { VSCodeWindowUI } from "../interactive_cli/ui"
-import { RWProject } from "../model"
+import { command_builder } from "../structure/interactive_cli/command_builder"
+import { redwood_gen_dry_run as dry_run } from "../structure/interactive_cli/dry_run"
+import { RedwoodCommandString } from "../structure/interactive_cli/RedwoodCommandString"
+import { VSCodeWindowUI } from "../structure/interactive_cli/ui"
+import { RWProject } from "../structure/model"
 import { lazy, memo } from "src/x/decorators"
 import {
   FileSet_fromTextDocuments,

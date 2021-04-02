@@ -3,13 +3,13 @@ import { default as React } from "react"
 import vscode from "vscode"
 import { TreeItem } from "lambdragon"
 import { vscode_ThemeIcon_memo as icon } from "src/x/vscode/vscode_ThemeIcon_memo"
-import { ProjectModel } from "../dev/model/ProjectModel"
+import { ProjectModel } from "../../dev/model/ProjectModel"
 import { BrowserPickerUI } from "./BrowserPickerUI"
 import { DebuggingUI } from "./DebuggingUI"
 import { DevServerUI } from "./DevServerUI"
 import { LivePreviewURLUI } from "./LivePreviewURLUI"
 import { SyncBrowserWithEditorUI } from "./SyncBrowserWithEditorUI"
-import { buildLabelProps } from "./util/buildLabelProps"
+import { buildLabelProps } from "../util/buildLabelProps"
 
 @observer
 export class StepDevelopUI extends React.Component<{
