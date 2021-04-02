@@ -44,7 +44,7 @@ export class URLWatcher {
     const { interval, url } = this.opts
     try {
       this.log("fetch()")
-      const resP = fetch(url, {
+      const resP: Promise<any> = fetch(url, {
         method: "get",
         cache: "no-cache",
         keepalive: false,

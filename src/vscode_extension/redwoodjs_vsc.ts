@@ -1,3 +1,26 @@
+
+import { existsSync } from "fs-extra"
+import { lazy } from "src/x/decorators"
+import { groupBy } from "lodash"
+import { dirname, join } from "path"
+import { redwoodLanguageServerV2 } from "src/structure/language_server/redwoodLanguageServerV2"
+import * as vscode from "vscode"
+import { Location as LSPLocation } from "vscode-languageserver-types"
+import { commands_activate } from "./commands/commands_activate"
+import { DecorationType, decoration_types2 } from "./decoration_types"
+import { USE_NEW_LANGUAGE_SERVER } from "./flags"
+import { log } from "./log"
+import { RedwoodLSPClientManager } from "./lsp_client/lsp_client"
+import { lsp_path_for_project } from "./lsp_client/lsp_path_for_project"
+import { new_version_message } from "./new_version_message"
+import { redwoodjs_vsc_enabled } from "./redwoodjs_vsc_enabled"
+import { statusbar } from "./statusbar/statusbar"
+import { redwoodjs_vsc_telemetry_reporter2 } from "./telemetry/telemetry"
+import { framework_version__installed } from "./util/framework_version__installed"
+import { treeview_workflow_initialize } from "./treeview/treeviews"
+import { treeview_docs_initialize } from "./treeview/docs/treeview_docs"
+
+
 export async function redwoodjs_vsc(ctx: vscode.ExtensionContext) {
   // new version check. we can get rid of this once the old version
   // is removed from the store
@@ -10,6 +33,7 @@ export async function redwoodjs_vsc(ctx: vscode.ExtensionContext) {
   ctx.subscriptions.push(manager)
   commands_activate(ctx)
   treeview_workflow_initialize(ctx)
+  treeview_docs_initialize(ctx)
   // initialize here...
 
   //DEV && redwoodjs_vsc_treeview22_activate(ctx)
@@ -196,23 +220,3 @@ function getTopLevelRWTomlPath(): string | undefined {
   }
 }
 
-import { existsSync } from "fs-extra"
-import { lazy } from "src/x/decorators"
-import { groupBy } from "lodash"
-import { dirname, join } from "path"
-import { redwoodLanguageServerV2 } from "src/structure/language_server/redwoodLanguageServerV2"
-import * as vscode from "vscode"
-import { Location as LSPLocation } from "vscode-languageserver-types"
-import { commands_activate } from "./commands/commands_activate"
-import { DecorationType, decoration_types2 } from "./decoration_types"
-import { USE_NEW_LANGUAGE_SERVER } from "./flags"
-import { log } from "./log"
-import { RedwoodLSPClientManager } from "./lsp_client/lsp_client"
-import { lsp_path_for_project } from "./lsp_client/lsp_path_for_project"
-import { new_version_message } from "./new_version_message"
-import { redwoodjs_vsc_enabled } from "./redwoodjs_vsc_enabled"
-import { statusbar } from "./statusbar/statusbar"
-import { redwoodjs_vsc_telemetry_reporter2 } from "./telemetry/telemetry"
-import { framework_version__installed } from "./util/framework_version__installed"
-import { treeview_workflow_initialize } from "./treeview/treeviews"
-import { DefaultHost, RWProject } from "src/structure"

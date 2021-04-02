@@ -111,27 +111,7 @@ export function lsp_treeview_contributes() {
         redwood: [
           {
             id: redwoodjs_treeview_id,
-            name: "Redwood Outline",
-            when: redwoodjs_vsc_enabled,
-          },
-          // {
-          //   id: redwoodjs_treeview_workflow_id,
-          //   name: "Redwood Workflow",
-          //   when: redwoodjs_vsc_enabled,
-          // },
-          {
-            id: redwoodjs_treeview_data_id,
-            name: "Redwood Data",
-            when: redwoodjs_vsc_enabled,
-          },
-          {
-            id: redwoodjs_treeview_docs_id,
-            name: "Redwood Docs",
-            when: redwoodjs_vsc_enabled,
-          },
-          {
-            id: redwoodjs_treeview_logs_id,
-            name: "Redwood Logs",
+            name: "Project Outline",
             when: redwoodjs_vsc_enabled,
           },
         ],

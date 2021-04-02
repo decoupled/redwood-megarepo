@@ -1,3 +1,5 @@
+const projectRoot = "/tmp/ff/example-blog"
+
 // creating a project is easy...
 {
   const project = createExampleProject()
@@ -34,7 +36,7 @@
   }
 }
 
-const projectRoot = "/tmp/ff/example-blog"
+
 
 function createExampleProject() {
   // "/Users/aldo/code/rw-app-for-testing-new-extension/redwoodblog"

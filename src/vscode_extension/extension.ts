@@ -8,6 +8,7 @@ import { commands_pjson } from "./commands/commands"
 import { lsp_treeview_contributes } from "./lsp_client/treeview/consts"
 import { redwoodjs_vsc } from "./redwoodjs_vsc"
 import icon from "./static/redwoodjs_logo.svg"
+import { treeview_docs_contributes } from "./treeview/docs/treeview_docs"
 import { treeview_workflow_contributes } from "./treeview/treeviews"
 
 // the build target for the extension
@@ -43,6 +44,7 @@ function contributes() {
     commands_pjson().contributes,
     lsp_treeview_contributes().contributes,
     treeview_workflow_contributes().contributes,
+    treeview_docs_contributes().contributes
   ])
 }
 
