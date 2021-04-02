@@ -7,7 +7,7 @@ import { contextValue, redwoodjs_treeview_id } from "./consts"
 import { icon_uri } from "./icon_uri"
 import { register_commands } from "./register_commands"
 
-export function treeview_setup(opts: {
+export function treeview_outline_setup(opts: {
   ctx: vscode.ExtensionContext
   client: LanguageClient
 }) {

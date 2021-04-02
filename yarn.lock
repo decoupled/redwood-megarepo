@@ -937,6 +937,13 @@
   resolved "https://registry.yarnpkg.com/@types/degit/-/degit-2.8.1.tgz#8441eac5993f92ac1f73964b0dc229d7f363d9d6"
   integrity sha512-aSZCNMDFlV/a4YAhu4XtSZD0m691UDPshmvMLeTx4YuuITsvv0SWeJSW4eURwegBYXvGysEDZ7fAmgkFsJf+RA==
 
+"@types/fs-extra@^9.0.9":
+  version "9.0.9"
+  resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-9.0.9.tgz#11ed43b3f3c6b3490f1ef9bd17f58da896e2d861"
+  integrity sha512-5TqDycCl0oMzwzd1cIjSJWMKMvLCDVErle4ZTjU4EmHDURR/+yZghe6GDHMCpHtcVfq0x0gMoOM546/5TbYHrg==
+  dependencies:
+    "@types/node" "*"
+
 "@types/git-url-parse@^9.0.0":
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/@types/git-url-parse/-/git-url-parse-9.0.0.tgz#aac1315a44fa4ed5a52c3820f6c3c2fb79cbd12d"

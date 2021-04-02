@@ -14,7 +14,7 @@ import {
   NewJamstackProjectSource,
   NewJamstackProjectSourceString,
   NewJamstackProjectSource_autoPickDir,
-  NewJamstackProjectSource_parse,
+  NewJamstackProjectSource_parse
 } from "../util/NewJamstackProjectSource"
 import { NewJamstackProjectSource_prompt } from "../util/NewJamstackProjectSource_prompt"
 import { TargetDirSpecification } from "../util/TargetDirSpecification"
@@ -27,15 +27,10 @@ import { yarn_create_dry } from "./yarn_create"
 export const commands = {
   // this is a public facing command
   develop_locally: {
-    command: "decoupled.jamstackide.develop_locally",
+    command: "redwoodjs.redwood.develop_locally",
     title: "Fetch and Develop Locally",
-    category: "Jamstack",
-  },
-  _sandbox: {
-    command: "decoupled.jamstackide.sandbox",
-    title: "Sandbox (remove before release)",
-    category: "Jamstack",
-  },
+    category: "Redwood",
+  }
 }
 
 export function ___buildmeta___() {

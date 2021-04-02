@@ -1,3 +1,30 @@
+
+import {
+  DocumentNode,
+  GraphQLSchema,
+  Location as GraphQLLocation,
+  parse as parseGraphQL
+} from "graphql"
+import {
+  getHoverInformation,
+  getOutline,
+  getTokenAtPosition,
+  getTypeInfo
+} from "graphql-language-service-interface"
+import { ContextToken } from "graphql-language-service-parser"
+import {
+  IPosition as GQLLSPosition,
+  Outline,
+  OutlineTree
+} from "graphql-language-service-types"
+import lineColumn from "line-column"
+import { lazy } from "src/x/decorators"
+import { URL_fromFile } from "src/x/url/URL_fromFile"
+import { Position_fromTSMorphOffset } from "src/x/vscode-languageserver-types"
+import * as tsm from "ts-morph"
+import { Location as LSPLocation } from "vscode-languageserver-types"
+import { OutlineInfoProvider } from "../types"
+
 /**
  * A utility wrapper to work with gql`` tagged template literals
  */
@@ -189,29 +216,3 @@ function getTypeInfoAtPosition(
   const typeInfo = getTypeInfo(schema, token.state)
   return typeInfo
 }
-
-import {
-  DocumentNode,
-  GraphQLSchema,
-  Location as GraphQLLocation,
-  parse as parseGraphQL,
-} from "graphql"
-import {
-  getHoverInformation,
-  getOutline,
-  getTokenAtPosition,
-  getTypeInfo,
-} from "graphql-language-service-interface"
-import { ContextToken } from "graphql-language-service-parser"
-import {
-  IPosition as GQLLSPosition,
-  Outline,
-  OutlineTree,
-} from "graphql-language-service-types"
-import lineColumn from "line-column"
-import { URL_fromFile } from "src/x/url/URL_fromFile"
-import * as tsm from "ts-morph"
-import { Location as LSPLocation } from "vscode-languageserver-types"
-import { lazy } from "src/x/decorators"
-import { Position_fromTSMorphOffset } from "src/x/vscode-languageserver-types"
-import { OutlineInfoProvider } from "../types"

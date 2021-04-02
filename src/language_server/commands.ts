@@ -1,3 +1,17 @@
+import { URL_toFile } from "src/x/url/URL_toFile"
+import { ExecuteCommandOptions } from "vscode-languageserver"
+import { interactive_cli_command_builder } from "../structure/interactive_cli/command_builder"
+import { interactive_cli_dry_run as dry_run } from "../structure/interactive_cli/dry_run"
+import { RedwoodCommandString } from "../structure/interactive_cli/RedwoodCommandString"
+import { VSCodeWindowUI } from "../structure/interactive_cli/ui"
+import { RWProject } from "../structure/model"
+import { lazy, memo } from "src/x/decorators"
+import {
+  FileSet_fromTextDocuments,
+  WorkspaceEdit_fromFileSet,
+} from "src/x/vscode-languageserver-types"
+import { RWLanguageServer } from "./RWLanguageServer"
+
 export const redwoodjs_commands = {
   "redwoodjs.cli": "redwoodjs.cli",
 }
@@ -56,7 +70,7 @@ export class CommandsManager {
       // (it is not a standard part of the LSP)
       // we have a convenience wrapper to access it
       const ui = new VSCodeWindowUI(vscodeWindowMethods)
-      const cmd2 = await command_builder({ cmd, project, ui })
+      const cmd2 = await interactive_cli_command_builder({ cmd, project, ui })
       if (!cmd2) return // user cancelled the interactive process
       cmd = cmd2
     }
@@ -90,17 +104,3 @@ export class CommandsManager {
     }
   }
 }
-
-import { URL_toFile } from "src/x/url/URL_toFile"
-import { ExecuteCommandOptions } from "vscode-languageserver"
-import { command_builder } from "../structure/interactive_cli/command_builder"
-import { redwood_gen_dry_run as dry_run } from "../structure/interactive_cli/dry_run"
-import { RedwoodCommandString } from "../structure/interactive_cli/RedwoodCommandString"
-import { VSCodeWindowUI } from "../structure/interactive_cli/ui"
-import { RWProject } from "../structure/model"
-import { lazy, memo } from "src/x/decorators"
-import {
-  FileSet_fromTextDocuments,
-  WorkspaceEdit_fromFileSet,
-} from "src/x/vscode-languageserver-types"
-import { RWLanguageServer } from "./RWLanguageServer"

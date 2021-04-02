@@ -1,3 +1,15 @@
+
+import { readdirSync } from "fs-extra"
+import { partition } from "lodash"
+import { dirname, join } from "path"
+import { followsDirNameConvention } from "src/x/path"
+import { URL_fromFile } from "src/x/url/URL_fromFile"
+import { URL_toFile } from "src/x/url/URL_toFile"
+import { DocumentUri } from "vscode-languageserver"
+import { BaseNode, FileNode } from "../ide"
+import { RWCell, RWPage, RWProject, RWRoute, RWServiceFunction } from "../model"
+import { Command_cli, Command_open, TreeItem2 } from "src/x/vscode"
+
 export function getOutline(project: RWProject): TreeItem2 {
   return {
     children: () => [
@@ -364,14 +376,3 @@ function* relatedArtifacts(fileURI: string) {
     }
   }
 }
-
-import { readdirSync } from "fs-extra"
-import { partition } from "lodash"
-import { dirname, join } from "path"
-import { followsDirNameConvention } from "src/x/path"
-import { URL_fromFile } from "src/x/url/URL_fromFile"
-import { URL_toFile } from "src/x/url/URL_toFile"
-import { DocumentUri } from "vscode-languageserver"
-import { BaseNode, FileNode } from "../ide"
-import { RWCell, RWPage, RWProject, RWRoute, RWServiceFunction } from "../model"
-import { Command_cli, Command_open, TreeItem2 } from "src/x/vscode"

@@ -1,5 +1,4 @@
 import * as fs from "fs-extra"
-import { cloneDeep } from "lodash"
 import { xmethods } from "src/language_server/xmethods"
 import { memo } from "src/x/decorators"
 import { URL_fromFile } from "src/x/url/URL_fromFile"
@@ -13,11 +12,11 @@ import {
   LanguageClientOptions,
   ServerOptions,
   State,
-  TransportKind,
+  TransportKind
 } from "vscode-languageclient/node"
 import { log } from "../log"
+import { treeview_outline_setup } from "../treeview/outline/treeview_outline_setup"
 import { lsp_client_middleware } from "./lsp_client_middleware"
-import { treeview_setup } from "./treeview/lsp_treeview_setup"
 
 /**
  * the lsp module can come and go as the user installs/uninstalls node_modules.
@@ -149,7 +148,7 @@ export class RedwoodLSPClient {
   @memo()
   private setupOutline2() {
     const { client, ctx } = this
-    treeview_setup({ client, ctx })
+    treeview_outline_setup({ client, ctx })
   }
 
   async stop() {
@@ -221,16 +220,6 @@ function buildClientOptions(ctx: vscode.ExtensionContext) {
     documentSelector,
     diagnosticCollectionName: "Redwood",
     middleware: lsp_client_middleware(ctx),
-    // errorHandler,
-    // middleware: {
-    //   async provideCodeLenses(document, token, next) {
-    //     try {
-    //       return await next(document, token)
-    //     } catch (e) {
-    //       console.log("caught error: " + e)
-    //     }
-    //   },
-    // },
     synchronize: {
       fileEvents: vscode.workspace.createFileSystemWatcher(
         "**/.{ts,tsx,js,jsx,toml,json,prisma}"
@@ -239,19 +228,3 @@ function buildClientOptions(ctx: vscode.ExtensionContext) {
   } as LanguageClientOptions
 }
 
-function _processCommand(cmd: vscode.Command): vscode.Command {
-  const { command, arguments: args, ...rest } = cloneDeep(cmd)
-  if (args) {
-    const a0 = args[0]
-    if (typeof a0 === "string") {
-      if (
-        a0.startsWith("https://") ||
-        a0.startsWith("http://") ||
-        a0.startsWith("file://")
-      ) {
-        args[0] = vscode.Uri.parse(a0)
-      }
-    }
-  }
-  return { command, arguments: args, ...rest }
-}

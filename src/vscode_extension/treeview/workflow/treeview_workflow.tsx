@@ -15,7 +15,7 @@ export const treeview_workflow_get = memoize((ctx: vscode.ExtensionContext) => {
   return TreeItem_render(treeview_workflow_id, <RootUI ctx={ctx} />)
 })
 
-export function treeview_workflow_initialize(ctx: vscode.ExtensionContext) {
+export function treeview_workflow_activate(ctx: vscode.ExtensionContext) {
   treeview_workflow_get(ctx)
 }
 

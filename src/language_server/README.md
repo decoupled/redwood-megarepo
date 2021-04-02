@@ -1,6 +1,6 @@
 # Overview
 
-This folder contains a [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) implementation that wraps the `../model` classes.
+This folder contains a [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) implementation that wraps the `structure/model` classes.
 
 # Usage
 

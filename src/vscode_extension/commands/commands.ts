@@ -67,7 +67,7 @@ export const commands = {
   // },
 }
 
-export function commands_pjson() {
+export function commands_contributes() {
   const commands_ = values(commands)
   const command_ids = commands_.map((c) => c.command)
   // only enable when in a redwood project
@@ -86,5 +86,5 @@ export function commands_pjson() {
 }
 
 {
-  commands_pjson()
+  commands_contributes()
 }

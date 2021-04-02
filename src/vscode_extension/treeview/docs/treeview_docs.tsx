@@ -4,18 +4,17 @@ import React from "react"
 import { redwoodjs_vsc_enabled } from "src/vscode_extension/redwoodjs_vsc_enabled"
 import { vscode_ThemeIcon_memo as icon } from "src/x/vscode/vscode_ThemeIcon_memo"
 import vscode from "vscode"
-import open from "open"
 
 const treeview_docs_id = "redwoodjs.treeview.docs"
 
-export const treeview_workflow_get = memoize((ctx: vscode.ExtensionContext) => {
+const treeview_docs_get = memoize((ctx: vscode.ExtensionContext) => {
 
   const ll = links.map(([label, icn, url]) => <TreeItem 
     label={label} 
     iconPath={icon(icn)} 
     collapsibleState={vscode.TreeItemCollapsibleState.None} 
     select={()=> {
-      if (typeof url === 'string') open(url)
+      if (typeof url === 'string') vscode.env.openExternal(vscode.Uri.parse(url))
       if (typeof url === 'function') url()
     }}
     // resourceUri={vscode.Uri.parse(url)}
@@ -42,13 +41,11 @@ async function startSearch(){
   const res = await vscode.window.showInputBox({prompt: 'Search community.redwoodjs.com'})
   if (!res || res.length < 2) return
   const url = `https://community.redwoodjs.com/search?q=${encodeURIComponent(res)}`
-  open(url)
+  vscode.env.openExternal(vscode.Uri.parse(url))
 }
 
-
-
-export function treeview_docs_initialize(ctx: vscode.ExtensionContext) {
-  treeview_workflow_get(ctx)
+export function treeview_docs_activate(ctx: vscode.ExtensionContext) {
+  treeview_docs_get(ctx)
 }
 
 export function treeview_docs_contributes() {

@@ -11,7 +11,7 @@ export interface Opts {
   ui: UI
 }
 
-export function command_builder(
+export function interactive_cli_command_builder(
   opts: Opts
 ): Promise<RedwoodCommandString | undefined> {
   return new CommandBuilder(opts).buildCommand()

@@ -16,8 +16,8 @@ import { new_version_message } from "./new_version_message"
 import { redwoodjs_vsc_enabled } from "./redwoodjs_vsc_enabled"
 import { statusbar } from "./statusbar/statusbar"
 import { redwoodjs_vsc_telemetry_reporter2 } from "./telemetry/telemetry"
-import { treeview_docs_initialize } from "./treeview/docs/treeview_docs"
-import { treeview_workflow_initialize } from "./treeview/workflow/treeview_workflow"
+import { treeview_docs_activate } from "./treeview/docs/treeview_docs"
+import { treeview_workflow_activate } from "./treeview/workflow/treeview_workflow"
 import { framework_version__installed } from "./util/framework_version__installed"
 
 
@@ -32,30 +32,8 @@ export async function redwoodjs_vsc(ctx: vscode.ExtensionContext) {
   const manager = new RedwoodVSCProjectManager(ctx)
   ctx.subscriptions.push(manager)
   commands_activate(ctx)
-  treeview_workflow_initialize(ctx)
-  treeview_docs_initialize(ctx)
-  // initialize here...
-
-  //DEV && redwoodjs_vsc_treeview22_activate(ctx)
-  return
-  // const w = vscode.workspace.createFileSystemWatcher("**/redwood.toml")
-  // const rwtoml_files = await vscode.workspace.findFiles("**/redwood.toml")
-  // for (const rwtoml_file of rwtoml_files) {
-  //   const projectRoot = dirname(rwtoml_file.fsPath)
-  //   const pw = new RedwoodVSCProject({
-  //     projectRoot,
-  //   })
-  //   break // support only one project for now
-  // }
-  // if (rwtoml_files.length > 0) {
-  // }
-  // w.onDidChange(e => {
-  //   console.log("change", e.fsPath)
-  // })
-  // w.onDidCreate(e => {
-  //   console.log("create", e.fsPath)
-  // })
-  // w.onDidDelete(e => {})
+  treeview_workflow_activate(ctx)
+  treeview_docs_activate(ctx)
 }
 
 class RedwoodVSCProjectManager {
@@ -137,10 +115,9 @@ class RedwoodVSCProject {
   @lazy()
   get lspServerPath() {
     if (USE_NEW_LANGUAGE_SERVER) {
-      const lspp = redwoodLanguageServerV2.getPathInVSCodeExtensionFolder(
+      return redwoodLanguageServerV2.getPathInVSCodeExtensionFolder(
         this.ctx
       )
-      return lspp
     }
     const p = lsp_path_for_project(this.projectRoot)
     if (!p) {

@@ -1,13 +1,12 @@
 import vscode from "vscode"
-import { init_hook_activate } from "./init_hook"
+import { NewJamstackProjectSourceString } from "../util/NewJamstackProjectSource"
 import {
   commands,
-  Opts,
-  FromCommandInvocation,
-  develop_locally,
-  hideAll,
+
+  
+  develop_locally, FromCommandInvocation, Opts
 } from "./develop_locally"
-import { NewJamstackProjectSourceString } from "../util/NewJamstackProjectSource"
+import { init_hook_activate } from "./init_hook"
 
 let activated = false
 export function develop_locally_command_activate(ctx: vscode.ExtensionContext) {
@@ -27,7 +26,5 @@ export function develop_locally_command_activate(ctx: vscode.ExtensionContext) {
       develop_locally(opts2, ctx)
     }
   )
-  vscode.commands.registerCommand(commands._sandbox.command, () => {
-    hideAll()
-  })
+
 }

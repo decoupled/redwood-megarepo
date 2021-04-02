@@ -4,8 +4,8 @@ import { join } from "path"
 import { redwoodLanguageServerV2 } from "src/language_server/redwoodLanguageServerV2"
 import vscode from "vscode"
 import merge from "webpack-merge"
-import { commands_pjson } from "./commands/commands"
-import { lsp_treeview_contributes } from "./lsp_client/treeview/consts"
+import { commands_contributes } from "./commands/commands"
+import { lsp_treeview_contributes } from "./treeview/outline/consts"
 import { redwoodjs_vsc } from "./redwoodjs_vsc"
 import icon from "./static/redwoodjs_logo.svg"
 import { treeview_docs_contributes } from "./treeview/docs/treeview_docs"
@@ -41,7 +41,7 @@ function main() {
 
 function contributes() {
   return merge([
-    commands_pjson().contributes,
+    commands_contributes().contributes,
     lsp_treeview_contributes().contributes,
     treeview_workflow_contributes().contributes,
     treeview_docs_contributes().contributes

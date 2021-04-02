@@ -28,7 +28,7 @@ interface Opts {
   tmpdir?: string
 }
 
-export async function redwood_gen_dry_run(
+export async function interactive_cli_dry_run(
   opts: Opts
 ): Promise<{ stdout: string; files: FileSet }> {
   const { cwd, cmd, fileOverrides, tmpdir } = opts
@@ -40,17 +40,11 @@ export async function redwood_gen_dry_run(
   const x = [proxyquire].length // we need to make sure this module is required. it will be used in a script we will generate dynamically
   const tempDir = tmpdir ?? join(cwd, ".tmp")
   const jsfile = join(tempDir, "rwcli.js")
-  let requireStatement = "proxyquire"
-  // if (extensionPath) {
-  //   requireStatement = relative(
-  //     dirname(jsfile),
-  //     extensionPath + "/node_modules/proxyquire"
-  //   );
-  // }
+  const requireStatement = "proxyquire"
   outputFileSync(jsfile, buildJS(fileOverrides, requireStatement))
   const cmdargs = "node " + jsfile + " " + cmd.processed
   const [cmd2, ...args] = cmdargs.split(" ")
-  // TODO: use execa?
+  // TODO: use execa
   const { stdout: out, stderr } = await spawnCancellable(cmd2, args, {
     cwd,
   })
