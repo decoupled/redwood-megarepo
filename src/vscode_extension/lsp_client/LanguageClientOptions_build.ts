@@ -15,7 +15,6 @@ export function LanguageClientOptions_build(
     "javascriptreact",
     "typescript",
     "typescriptreact",
-    "toml",
     "json",
   ]
   const tsLanguageselectors = tsLanguageIDs.map((language) => ({
@@ -25,7 +24,7 @@ export function LanguageClientOptions_build(
   const documentSelector = [
     ...tsLanguageselectors,
     { scheme: "file", language: "toml", pattern: "redwood.toml" },
-    { scheme: "file", language: "prisma", pattern: "schema.prisma" },
+    { scheme: "file", language: "prisma", pattern: "*.prisma" },
   ]
   // TODO: errors?
   const _errorHandler: ErrorHandler = {
