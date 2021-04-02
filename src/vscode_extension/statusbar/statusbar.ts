@@ -11,7 +11,7 @@ interface Opts {
   projectRoot: string
 }
 
-export function statusbar(opts: Opts) {
+export function statusbar_activate(opts: Opts) {
   // eslint-disable-next-line no-new
   new RedwoodjsStatusBarManager(opts)
 }

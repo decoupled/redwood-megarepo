@@ -14,11 +14,12 @@ const treeview_docs_get = memoize((ctx: vscode.ExtensionContext) => {
       iconPath={icon(icn)}
       collapsibleState={vscode.TreeItemCollapsibleState.None}
       select={() => {
-        if (typeof url === "string")
+        if (typeof url === "string") {
           vscode.env.openExternal(vscode.Uri.parse(url))
-        if (typeof url === "function") url()
+        } else if (typeof url === "function") {
+          url()
+        }
       }}
-      // resourceUri={vscode.Uri.parse(url)}
     />
   ))
 

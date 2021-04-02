@@ -1,19 +1,17 @@
 import { existsSync } from "fs-extra"
-import { groupBy } from "lodash"
 import { dirname, join } from "path"
 import { language_server } from "src/language_server/language_server"
 import { lazy } from "src/x/decorators"
 import * as vscode from "vscode"
-import { Location as LSPLocation } from "vscode-languageserver-types"
 import { commands_activate } from "./commands/commands_activate"
-import { DecorationType, decoration_types2 } from "./decoration_types"
+import { decorations_activate } from "./decorations/decorations"
 import { USE_NEW_LANGUAGE_SERVER } from "./flags"
 import { log } from "./log"
 import { RedwoodLSPClientManager } from "./lsp_client/lsp_client"
 import { lsp_path_for_project } from "./lsp_client/lsp_path_for_project"
 import { new_version_message } from "./new_version_message"
 import { redwoodjs_vsc_enabled } from "./redwoodjs_vsc_enabled"
-import { statusbar } from "./statusbar/statusbar"
+import { statusbar_activate } from "./statusbar/statusbar"
 import { telemetry_activate } from "./telemetry/telemetry"
 import { treeview_docs_activate } from "./treeview/docs/treeview_docs"
 import { treeview_workflow_activate } from "./treeview/workflow/treeview_workflow"
@@ -85,15 +83,17 @@ class RedwoodVSCProject {
 
     log("new RedwoodVSCProject(" + opts.projectRoot + ")")
 
-    statusbar(opts)
+    statusbar_activate(opts)
 
     telemetry_activate(this.opts.ctx).event_redwoodProjectDetected({
       redwoodVersion: this.redwoodVersion ?? "",
     })
 
-    setInterval(() => {
-      this.updateDecorations()
-    }, 300)
+    decorations_activate(this.opts.ctx, async (uri) => {
+      const info = (await this.lspClient.client?.getInfo(uri.toString())) ?? []
+      return info.filter((i) => i.kind === "Decoration")
+    })
+
     // eslint-disable-next-line no-unused-expressions
     this.lspClient // make sure client is initialized
   }
@@ -128,44 +128,6 @@ class RedwoodVSCProject {
 
   get ctx() {
     return this.opts.ctx
-  }
-
-  private async updateDecorationsForEditor(editor: vscode.TextEditor) {
-    const { document } = editor
-    const { uri } = document
-    if (uri.scheme !== "file") {
-      return
-    }
-    const info = (await this.lspClient.client?.getInfo(uri.toString())) ?? []
-    const decs: { location: LSPLocation; style: string }[] = info.filter(
-      (i) => i.kind === "Decoration"
-    )
-    const grouped = groupBy(decs, (d) => d.style)
-    const decorationTypes = decoration_types2 // decoration_types()
-    for (const style of Object.keys(grouped)) {
-      const dt = decorationTypes[style as DecorationType]
-      if (!dt) {
-        throw new Error(`decoration type/style not found: ${style}`)
-      }
-      const lspRanges = grouped[style].map((s) => s.location.range)
-      const vscRanges = lspRanges.map(
-        (r) =>
-          new vscode.Range(
-            r.start.line,
-            r.start.character,
-            r.end.line,
-            r.end.character
-          )
-      )
-      editor.setDecorations(dt, vscRanges)
-    }
-  }
-  private updateDecorations() {
-    const { activeTextEditor } = vscode.window
-    if (!activeTextEditor) {
-      return
-    }
-    this.updateDecorationsForEditor(activeTextEditor)
   }
 
   dispose() {

@@ -1,5 +1,4 @@
 import { OutlineInfoResolver } from "src/structure/model/types"
-//import { getOutline } from '../outline/outline'
 import { memo } from "src/x/decorators"
 import {
   RemoteTreeDataProviderImpl,
@@ -7,8 +6,6 @@ import {
 } from "src/x/vscode"
 
 import { RWLanguageServer } from "./RWLanguageServer"
-
-const USE_NEW_OUTLINE = true as const
 
 export class OutlineManager {
   constructor(public server: RWLanguageServer) {}
@@ -22,14 +19,8 @@ export class OutlineManager {
             return [{ label: "No Redwood.js project found..." }]
           },
         }
-      // eslint-disable-next-line no-constant-condition
-      if (USE_NEW_OUTLINE) {
-        const oif = new OutlineInfoResolver(p)
-        return await oif.treeItem()
-      } else {
-        //return getOutline(p)
-        throw new Error()
-      }
+      const oif = new OutlineInfoResolver(p)
+      return await oif.treeItem()
     }
 
     const tdp = new RemoteTreeDataProviderImpl(getRoot, 10000)

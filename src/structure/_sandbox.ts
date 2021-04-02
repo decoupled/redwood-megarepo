@@ -1,21 +1,13 @@
+import * as util from "util"
+import { DefaultHost } from "./hosts"
+import { RWProject } from "./model"
+
 const projectRoot = "/tmp/ff/example-blog"
 
 // creating a project is easy...
 {
   const project = createExampleProject()
   project.pages.length
-}
-
-// let's try out the outline
-{
-  const project = createExampleProject()
-  const outline = getOutline(project)
-  console.log(typeof outline)
-  console.log(util.inspect(outline))
-  const cs = await outline.children()
-  console.log(cs)
-  const x = await TreeItem2_resolveChildren(outline)
-  console.log(x)
 }
 
 // trying to track down some bugs...
@@ -40,10 +32,3 @@ function createExampleProject() {
   // "/Users/aldo/code/rw-app-for-testing-new-extension/redwoodblog"
   return new RWProject({ projectRoot, host: new DefaultHost() })
 }
-
-import { ArrayLike_normalize } from "src/x/Array"
-import { TreeItem2_resolveChildren } from "src/x/vscode"
-import * as util from "util"
-import { DefaultHost } from "./hosts"
-import { RWProject } from "./model"
-import { getOutline } from "./outline"

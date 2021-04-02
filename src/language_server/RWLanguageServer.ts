@@ -1,3 +1,27 @@
+import { lazy, memo } from "src/x/decorators"
+import { URL_toFile } from "src/x/url/URL_toFile"
+import { VSCodeWindowMethods_fromConnection } from "src/x/vscode"
+import { Connection_suppressErrors } from "src/x/vscode-languageserver"
+import {
+  ExtendedDiagnostic_findRelevantQuickFixes,
+  Range_contains,
+} from "src/x/vscode-languageserver-types"
+import { TextDocument } from "vscode-languageserver-textdocument"
+import { CodeAction } from "vscode-languageserver-types"
+import {
+  createConnection,
+  InitializeParams,
+  ProposedFeatures,
+  TextDocuments,
+  TextDocumentSyncKind,
+} from "vscode-languageserver/node"
+import { HostWithDocumentsStore, IDEInfo } from "../structure/ide"
+import { RWProject } from "../structure/model"
+import { CommandsManager } from "./commands"
+import { DiagnosticsManager } from "./diagnostics"
+import { OutlineManager } from "./outline"
+import { XMethodsManager } from "./xmethods"
+
 export class RWLanguageServer {
   initializeParams!: InitializeParams
   documents = new TextDocuments(TextDocument)
@@ -155,27 +179,3 @@ export class RWLanguageServer {
     )
   }
 }
-
-import { URL_toFile } from "src/x/url/URL_toFile"
-import { TextDocument } from "vscode-languageserver-textdocument"
-import { CodeAction } from "vscode-languageserver-types"
-import {
-  createConnection,
-  InitializeParams,
-  ProposedFeatures,
-  TextDocuments,
-  TextDocumentSyncKind,
-} from "vscode-languageserver/node"
-import { HostWithDocumentsStore, IDEInfo } from "../structure/ide"
-import { RWProject } from "../structure/model"
-import { lazy, memo } from "src/x/decorators"
-import { VSCodeWindowMethods_fromConnection } from "src/x/vscode"
-import { Connection_suppressErrors } from "src/x/vscode-languageserver"
-import {
-  ExtendedDiagnostic_findRelevantQuickFixes,
-  Range_contains,
-} from "src/x/vscode-languageserver-types"
-import { CommandsManager } from "./commands"
-import { DiagnosticsManager } from "./diagnostics"
-import { OutlineManager } from "./outline"
-import { XMethodsManager } from "./xmethods"
