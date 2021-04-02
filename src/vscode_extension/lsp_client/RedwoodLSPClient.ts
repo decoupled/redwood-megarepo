@@ -1,57 +1,13 @@
-import * as fs from "fs-extra"
 import { xmethods } from "src/language_server/xmethods"
 import { memo } from "src/x/decorators"
 import { URL_fromFile } from "src/x/url/URL_fromFile"
 import { vscode_window_createTerminal_andRun } from "src/x/vscode/vscode_window_createTerminal_andRun"
 import vscode from "vscode"
-import {
-  CloseAction,
-  ErrorAction,
-  ErrorHandler,
-  LanguageClient,
-  LanguageClientOptions,
-  ServerOptions,
-  State,
-  TransportKind,
-} from "vscode-languageclient/node"
+import { LanguageClient, State } from "vscode-languageclient/node"
 import { log } from "../log"
 import { treeview_outline_setup } from "../treeview/outline/treeview_outline_setup"
-import { lsp_client_middleware } from "./lsp_client_middleware"
-
-/**
- * the lsp module can come and go as the user installs/uninstalls node_modules.
- * this class will watch for these changes and restart accordingly.
- * It manages the lifecycle of a RedwoodLSPClient
- */
-export class RedwoodLSPClientManager {
-  constructor(
-    private pathToModule: string,
-    private ctx: vscode.ExtensionContext
-  ) {
-    this.tick()
-  }
-  client: RedwoodLSPClient | undefined
-  async tick() {
-    const active = !this.stopped && fs.existsSync(this.pathToModule)
-    if (active) {
-      if (!this.client) {
-        this.client = new RedwoodLSPClient(this.pathToModule, this.ctx)
-      }
-    } else {
-      if (this.client) {
-        this.client.stop()
-        this.client = undefined
-      }
-    }
-    if (!this.stopped) {
-      setTimeout(() => this.tick(), 1000)
-    }
-  }
-  private stopped = false
-  stop() {
-    this.stopped = true
-  }
-}
+import { LanguageClientOptions_build } from "./LanguageClientOptions_build"
+import { ServerOptions_build } from "./ServerOptions_build"
 
 export class RedwoodLSPClient {
   constructor(
@@ -74,8 +30,8 @@ export class RedwoodLSPClient {
     this.client = new LanguageClient(
       "redwood-language-server",
       "Redwood Language Server",
-      buildServerOptions(this.pathToModule),
-      buildClientOptions(this.ctx)
+      ServerOptions_build(this.pathToModule),
+      LanguageClientOptions_build(this.ctx)
     )
 
     this.client.onDidChangeState((e) => {
@@ -159,71 +115,4 @@ export class RedwoodLSPClient {
     await this.client.stop()
     this.status = "stopped"
   }
-}
-
-/**
- *
- * @param module path to the lsp entry point on disk
- *   ex: "node_modules/@redwoodjs/structure/dist/language_server/start.js"
- */
-function buildServerOptions(module: string): ServerOptions {
-  // The debug options for the server
-  // --inspect=6009: runs the server in Node's Inspector mode so VS Code can attach to the server for debugging
-  const debugOptions = {
-    execArgv: [
-      "--nolazy",
-      "--inspect=6009",
-      //"--inspect",
-    ],
-  }
-  // If the extension is launched in debug mode then the debug server options are used
-  // Otherwise the run options are used
-  return {
-    run: { module, transport: TransportKind.ipc },
-    debug: {
-      module,
-      transport: TransportKind.ipc,
-      options: debugOptions,
-    },
-  }
-}
-
-function buildClientOptions(ctx: vscode.ExtensionContext) {
-  const tsLanguageIDs = [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "toml",
-    "json",
-  ]
-  const tsLanguageselectors = tsLanguageIDs.map((language) => ({
-    scheme: "file",
-    language,
-  }))
-  const documentSelector = [
-    ...tsLanguageselectors,
-    { scheme: "file", language: "toml", pattern: "redwood.toml" },
-    { scheme: "file", language: "prisma", pattern: "schema.prisma" },
-  ]
-  // Options to control the language client
-  const _errorHandler: ErrorHandler = {
-    error(error, message, count) {
-      console.log("lsp client connection error", error, message, count)
-      return ErrorAction.Shutdown
-    },
-    closed() {
-      return CloseAction.Restart
-    },
-  }
-  return {
-    documentSelector,
-    diagnosticCollectionName: "Redwood",
-    middleware: lsp_client_middleware(ctx),
-    synchronize: {
-      fileEvents: vscode.workspace.createFileSystemWatcher(
-        "**/.{ts,tsx,js,jsx,toml,json,prisma}"
-      ),
-    },
-  } as LanguageClientOptions
 }
