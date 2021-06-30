@@ -1,19 +1,17 @@
-import { lazy, memo } from "src/x/decorators"
-import { URL_toFile } from "src/x/url/URL_toFile"
+import { lazy, memo, Range_contains, URLString_toFile } from "@decoupled/xlib"
 import { VSCodeWindowMethods_fromConnection } from "src/x/vscode"
 import { Connection_suppressErrors } from "src/x/vscode-languageserver"
 import {
-  ExtendedDiagnostic_findRelevantQuickFixes,
-  Range_contains,
+  ExtendedDiagnostic_findRelevantQuickFixes
 } from "src/x/vscode-languageserver-types"
+import { CodeAction } from "vscode-languageserver"
 import { TextDocument } from "vscode-languageserver-textdocument"
-import { CodeAction } from "vscode-languageserver-types"
 import {
   createConnection,
   InitializeParams,
   ProposedFeatures,
   TextDocuments,
-  TextDocumentSyncKind,
+  TextDocumentSyncKind
 } from "vscode-languageserver/node"
 import { HostWithDocumentsStore, IDEInfo } from "../structure/ide"
 import { RWProject } from "../structure/model"
@@ -60,7 +58,7 @@ export class RWLanguageServer {
       const folders = await connection.workspace.getWorkspaceFolders()
       if (folders) {
         for (const folder of folders) {
-          this.projectRoot = URL_toFile(folder.uri)
+          this.projectRoot = URLString_toFile(folder.uri)
         }
       }
     })

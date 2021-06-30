@@ -1,7 +1,7 @@
 import * as tsm from "ts-morph"
 
 import { FileNode } from "../ide"
-import { lazy } from "src/x/decorators"
+import { lazy } from "@decoupled/xlib"
 
 import { RWProject } from "./RWProject"
 import { OutlineInfoProvider } from "./types"

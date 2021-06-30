@@ -1,9 +1,9 @@
+import { memo } from "@decoupled/xlib"
 import { FileNode } from "../ide"
-import { memo } from "src/x/decorators"
-
 import { RWPage } from "./RWPage"
 import { RWProject } from "./RWProject"
 import { OutlineInfoProvider } from "./types"
+
 
 /**
  * layouts live in the src/layouts folder

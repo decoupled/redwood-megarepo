@@ -1,3 +1,6 @@
+import * as tsm from "ts-morph"
+import { tsm_ResolutionHostFactory_withDirnameConvention } from "./tsm_ResolutionHostFactory_withDirnameConvention"
+
 /**
  * - extends the resolution logic to include the Dirname convention
  */
@@ -22,6 +25,3 @@ export function tsm_Project_redwoodFriendly(
     resolutionHost: tsm_ResolutionHostFactory_withDirnameConvention(),
   })
 }
-
-import * as tsm from "ts-morph"
-import { tsm_ResolutionHostFactory_withDirnameConvention } from "./tsm_ResolutionHostFactory_withDirnameConvention"

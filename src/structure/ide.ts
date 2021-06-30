@@ -1,29 +1,24 @@
+import { ArrayLike, ArrayLike_normalize, iter, lazy, memo, URLString_fromFile } from "@decoupled/xlib"
 import { readdirSync } from "fs-extra"
 import { basename, dirname, extname, join } from "path"
 import {
-  ArrayLike,
-  ArrayLike_normalize,
-  Array_collectInstancesOf,
-  iter,
+  Array_collectInstancesOf
 } from "src/x/Array"
-import { lazy, memo } from "src/x/decorators"
 import { basenameNoExt, followsDirNameConvention } from "src/x/path"
-import { tsm_SourceFile_create_cached } from "src/x/ts-morph/tsm_SourceFile_create"
 import { tsm_Project_redwoodFriendly } from "src/x/ts-morph/tsm_Project_redwoodFriendly"
+import { tsm_SourceFile_create_cached } from "src/x/ts-morph/tsm_SourceFile_create"
 import { ts_findTSConfig } from "src/x/ts/ts_findTSConfig"
-import { URL_fromFile } from "src/x/url/URL_fromFile"
 import { ExtendedDiagnostic } from "src/x/vscode-languageserver-types"
 import * as tsm from "ts-morph"
-import { TextDocuments } from "vscode-languageserver"
-import { TextDocument } from "vscode-languageserver-textdocument"
 import {
   CodeLens,
   DocumentLink,
   DocumentUri,
   Hover,
   Location,
-  Range,
-} from "vscode-languageserver-types"
+  Range, TextDocuments
+} from "vscode-languageserver"
+import { TextDocument } from "vscode-languageserver-textdocument"
 import { DefaultHost, Host } from "./hosts"
 import { OutlineInfoProvider } from "./model/types"
 
@@ -218,7 +213,7 @@ export abstract class BaseNode implements OutlineInfoProvider {
    */
   @memo()
   async findNode(id: NodeID): Promise<BaseNode | undefined> {
-    id = URL_fromFile(id)
+    id = URLString_fromFile(id)
     if (this.id === id) return this
     if (id.startsWith(this.id))
       for (const c of await this._children()) {
@@ -244,7 +239,7 @@ export abstract class BaseNode implements OutlineInfoProvider {
 export abstract class FileNode extends BaseNode {
   abstract get filePath(): string
   @lazy() get uri(): DocumentUri {
-    return URL_fromFile(this.filePath)
+    return URLString_fromFile(this.filePath)
   }
   /**
    * the ID of a FileNode is its file:// uri.
@@ -346,7 +341,7 @@ export abstract class FileNode extends BaseNode {
         const dir = dirname(filePath)
         for (const dd of readdirSync(dir)) {
           const file2 = join(dir, dd)
-          const file2URI = URL_fromFile(file2)
+          const file2URI = URLString_fromFile(file2)
           if (file2URI === uri) continue // do not list same file
           yield file2URI
         }
@@ -401,7 +396,7 @@ export abstract class FileNode extends BaseNode {
       if (test_) {
         if (self.host.existsSync(test_)) {
           return {
-            uri: URL_fromFile(test_),
+            uri: URLString_fromFile(test_),
             outlineDescription: description,
           } as OutlineInfoProvider
         } else {
@@ -428,7 +423,7 @@ export class HostWithDocumentsStore implements Host {
   defaultHost = new DefaultHost()
   constructor(public documents: TextDocuments<TextDocument>) {}
   readFileSync(path: string) {
-    const uri = URL_fromFile(path)
+    const uri = URLString_fromFile(path)
     const doc = this.documents.get(uri)
     if (doc) return doc.getText()
     return this.defaultHost.readFileSync(path)

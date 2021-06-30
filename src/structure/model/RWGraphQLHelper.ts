@@ -1,6 +1,6 @@
+import { lazy } from "@decoupled/xlib"
 import { buildSchema, GraphQLSchema } from "graphql"
 import { mergeTypes } from "merge-graphql-schemas"
-import { lazy } from "src/x/decorators"
 import { graphql_redwood_root_schema__parsed } from "src/x/graphql/graphql_redwood_root_schema"
 import { BaseNode } from "../ide"
 import { RWProject } from "./RWProject"

@@ -1,20 +1,19 @@
+import { lazy, URLString_fromFile } from "@decoupled/xlib"
 import * as dotenv from "dotenv-defaults"
 import { existsSync, readFileSync } from "fs-extra"
 import { pickBy } from "lodash"
 import { join } from "path"
-import { URL_fromFile } from "src/x/url/URL_fromFile"
+import { prisma_parseEnvExpressionsInFile } from "src/x/prisma"
+import { Command_open } from "src/x/vscode"
 import {
   ExtendedDiagnostic,
   ExtendedDiagnostic_is,
   LocationLike_toHashLink,
-  LocationLike_toLocation,
+  LocationLike_toLocation
 } from "src/x/vscode-languageserver-types"
 import * as tsm from "ts-morph"
 import { DiagnosticSeverity, Location, Range } from "vscode-languageserver"
 import { BaseNode, CodeLensX, Definition, HoverX, Reference } from "../ide"
-import { lazy } from "src/x/decorators"
-import { prisma_parseEnvExpressionsInFile } from "src/x/prisma"
-import { Command_open } from "src/x/vscode"
 import { RWProject } from "./RWProject"
 import { process_env_findAll } from "./util/process_env"
 
@@ -179,7 +178,7 @@ class ProcessDotEnvExpression extends BaseNode {
     const lines = content.split("\n")
     const index = lines.findIndex((l) => l.startsWith(this.key + "="))
     return {
-      uri: URL_fromFile(file),
+      uri: URLString_fromFile(file),
       range: Range.create(index, 0, index, lines[index].length),
     }
   }

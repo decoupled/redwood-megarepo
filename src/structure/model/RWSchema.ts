@@ -1,7 +1,7 @@
 import { getDMMF } from "@prisma/sdk"
 import { Command_open } from "src/x/vscode"
 import { FileNode } from "../ide"
-import { memo } from "src/x/decorators"
+import { memo } from "@decoupled/xlib"
 import { RWProject } from "./RWProject"
 import { RWSchemaModel } from "./RWSchemaModel"
 

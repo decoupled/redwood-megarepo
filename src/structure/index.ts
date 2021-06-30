@@ -1,12 +1,12 @@
-export { DiagnosticSeverity } from "vscode-languageserver-types"
+export { DiagnosticSeverity } from "vscode-languageserver"
 export { DefaultHost, Host } from "./hosts"
 export { RWProject } from "./model"
-import { DefaultHost } from "./hosts"
-import { RWProject } from "./model"
 import {
   ExtendedDiagnostic_format,
-  GetSeverityLabelFunction,
+  GetSeverityLabelFunction
 } from "src/x/vscode-languageserver-types"
+import { DefaultHost } from "./hosts"
+import { RWProject } from "./model"
 
 export function getProject(projectRoot: string, host = new DefaultHost()) {
   return new RWProject({

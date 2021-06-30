@@ -1,6 +1,6 @@
 import { DMMF } from "@prisma/generator-helper"
 import { BaseNode } from "../ide"
-import { lazy, memo } from "src/x/decorators"
+import { lazy, memo } from "@decoupled/xlib"
 import { RWSchema } from "./RWSchema"
 import { RWSchemaModelField } from "./RWSchemaModelField"
 

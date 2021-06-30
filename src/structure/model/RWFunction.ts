@@ -1,4 +1,4 @@
-import { lazy } from "src/x/decorators"
+import { lazy } from "@decoupled/xlib"
 import { FileNode } from "../ide"
 
 import { RWProject } from "./RWProject"

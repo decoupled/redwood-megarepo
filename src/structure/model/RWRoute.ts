@@ -1,15 +1,13 @@
-import { lazy, memo } from "src/x/decorators"
+import { lazy, Location_fromFilePath, memo, Position_translate } from "@decoupled/xlib"
 import { Command_cli, Command_open } from "src/x/vscode"
 import {
   err,
   LocationLike_toLocation,
-  Location_fromFilePath,
   Location_fromNode,
-  Position_translate,
-  Range_fromNode,
+  Range_fromNode
 } from "src/x/vscode-languageserver-types"
 import * as tsm from "ts-morph"
-import { Location, Range } from "vscode-languageserver-types"
+import { Location, Range } from "vscode-languageserver"
 import { RWError } from "../errors"
 import { BaseNode, Decoration, Definition, DocumentLinkX, HoverX } from "../ide"
 import { validateRoutePath } from "../util"

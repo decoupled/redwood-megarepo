@@ -1,8 +1,8 @@
-import { TreeItem, TreeItem_render } from "lambdragon"
+
+import { vscode_react_TreeItem as TreeItem, vscode_react_TreeItem_render as TreeItem_render, vscode_ThemeIcon_memo as icon } from "@decoupled/xlib"
 import { memoize } from "lodash"
 import React from "react"
 import { redwoodjs_vsc_enabled } from "src/vscode_extension/redwoodjs_vsc_enabled"
-import { vscode_ThemeIcon_memo as icon } from "src/x/vscode/vscode_ThemeIcon_memo"
 import vscode from "vscode"
 
 const treeview_docs_id = "redwoodjs.treeview.docs"

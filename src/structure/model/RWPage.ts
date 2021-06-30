@@ -1,3 +1,13 @@
+import { lazy, memo } from "@decoupled/xlib"
+import { dirname } from "path"
+import { directoryNameResolver } from "src/x/path"
+import { RegExp_hasExtension_ts_tsx_js_jsx } from "src/x/RegExp/RegExp_hasExtension_ts_tsx_js_jsx"
+import * as tsm from "ts-morph"
+import { FileNode } from "../ide"
+import { RWLayout } from "./RWLayout"
+import { RWProject } from "./RWProject"
+import { OutlineInfoProvider } from "./types"
+
 export class RWPage extends FileNode implements OutlineInfoProvider {
   constructor(
     public const_: string,
@@ -76,12 +86,3 @@ export class RWPage extends FileNode implements OutlineInfoProvider {
   }
 }
 
-import { dirname } from "path"
-import { lazy, memo } from "src/x/decorators"
-import { directoryNameResolver } from "src/x/path"
-import { RegExp_hasExtension_ts_tsx_js_jsx } from "src/x/RegExp/RegExp_hasExtension_ts_tsx_js_jsx"
-import * as tsm from "ts-morph"
-import { FileNode } from "../ide"
-import { RWLayout } from "./RWLayout"
-import { RWProject } from "./RWProject"
-import { OutlineInfoProvider } from "./types"

@@ -1,3 +1,7 @@
+import { existsSync } from "fs"
+import { basename, normalize, sep } from "path"
+
+
 export function directoryNameResolver(dirName: string): string | undefined {
   dirName = normalize(dirName)
   const parts = dirName.split(sep)
@@ -63,5 +67,3 @@ export function isCellFileName(f: string): boolean {
   return basenameNoExt(f).endsWith("Cell")
 }
 
-import { existsSync } from "fs"
-import { basename, normalize, sep } from "path"

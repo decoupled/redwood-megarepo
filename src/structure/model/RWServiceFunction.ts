@@ -1,14 +1,11 @@
-import * as tsm from "ts-morph"
-import { DiagnosticSeverity } from "vscode-languageserver-types"
-
-import { BaseNode, Reference } from "../ide"
-import { iter } from "src/x/Array"
-import { lazy, memo } from "src/x/decorators"
+import { iter, lazy, memo } from "@decoupled/xlib"
 import {
   ExtendedDiagnostic,
-  Location_fromNode,
+  Location_fromNode
 } from "src/x/vscode-languageserver-types"
-
+import * as tsm from "ts-morph"
+import { DiagnosticSeverity } from "vscode-languageserver"
+import { BaseNode, Reference } from "../ide"
 import { RWSDLField } from "./RWSDLField"
 import { RWService } from "./RWService"
 import { OutlineInfoProvider } from "./types"

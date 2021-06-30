@@ -1,7 +1,5 @@
+import { memo, URLString_fromFile, vscode_window_createTerminal_andRun } from "@decoupled/xlib"
 import { xmethods } from "src/language_server/xmethods"
-import { memo } from "src/x/decorators"
-import { URL_fromFile } from "src/x/url/URL_fromFile"
-import { vscode_window_createTerminal_andRun } from "src/x/vscode/vscode_window_createTerminal_andRun"
 import vscode from "vscode"
 import { LanguageClient, State } from "vscode-languageclient/node"
 import { log } from "../log"
@@ -95,7 +93,7 @@ export class RedwoodLSPClient {
     try {
       return await this.client.sendRequest(
         xmethods.getRoutePathForFilePath,
-        URL_fromFile(filePath)
+        URLString_fromFile(filePath)
       )
       // eslint-disable-next-line no-empty
     } catch (e) {}

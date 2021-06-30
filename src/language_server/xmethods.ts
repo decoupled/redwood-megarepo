@@ -1,4 +1,4 @@
-import { memo } from "src/x/decorators"
+import { memo } from "@decoupled/xlib"
 
 import { RWLanguageServer } from "./RWLanguageServer"
 

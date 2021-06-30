@@ -1,5 +1,5 @@
 import { OutlineInfoResolver } from "src/structure/model/types"
-import { memo } from "src/x/decorators"
+import { memo } from "@decoupled/xlib"
 import {
   RemoteTreeDataProviderImpl,
   RemoteTreeDataProvider_publishOverLSPConnection,

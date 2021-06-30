@@ -1,5 +1,5 @@
 import { cloneDeep } from "lodash"
-import { vscode_ThemeIcon_memo } from "src/x/vscode/vscode_ThemeIcon_memo"
+import { vscode_ThemeIcon_memo } from "@decoupled/xlib"
 import vscode from "vscode"
 import { LanguageClient } from "vscode-languageclient/node"
 import { log } from "../../log"

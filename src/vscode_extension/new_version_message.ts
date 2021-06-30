@@ -1,7 +1,6 @@
-import { lazy } from "src/x/decorators"
+import { lazy, vscode_extensions_getExtensionID } from "@decoupled/xlib"
 import vscode from "vscode"
 
-import { vscode_extensions_getExtensionID } from "src/x/vscode/vscode_extensions_getExtensionID"
 
 /**
  * Checks if there is a newer redwood version available and

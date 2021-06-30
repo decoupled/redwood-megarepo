@@ -1,23 +1,22 @@
+import { lazy, URLString_fromFile } from "@decoupled/xlib"
 import { Location as GraphQLLocation } from "graphql"
 import {
   FieldDefinitionNode,
-  ObjectTypeDefinitionNode,
+  ObjectTypeDefinitionNode
 } from "graphql/language/ast"
-import { URL_fromFile } from "src/x/url/URL_fromFile"
+import {
+  ExtendedDiagnostic,
+  Location_fromNode
+} from "src/x/vscode-languageserver-types"
 import {
   CodeAction,
   DiagnosticSeverity,
   Location,
   Position,
-  WorkspaceChange,
-} from "vscode-languageserver-types"
+  WorkspaceChange
+} from "vscode-languageserver"
 import { RWError } from "../errors"
 import { BaseNode, Implementation, Reference } from "../ide"
-import { lazy } from "src/x/decorators"
-import {
-  ExtendedDiagnostic,
-  Location_fromNode,
-} from "src/x/vscode-languageserver-types"
 import { RWSDL } from "./RWSDL"
 import { RWServiceFunction } from "./RWServiceFunction"
 
@@ -126,7 +125,7 @@ export const ${this.field.name.value} = ({${params}}) => {
     const { service } = this.parent
     const change = new WorkspaceChange({ documentChanges: [] })
     let insertPosition = Position.create(0, 0)
-    let uri = URL_fromFile(this.parent.serviceFilePath)
+    let uri = URLString_fromFile(this.parent.serviceFilePath)
     if (service) {
       // we'll insert into the end of an existing file
       const lastLine = service.sf.getEndLineNumber()

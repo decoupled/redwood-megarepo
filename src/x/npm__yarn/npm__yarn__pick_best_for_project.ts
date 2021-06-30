@@ -1,7 +1,8 @@
 import command_exists from "command-exists"
 import { existsSync } from "fs-extra"
 import { join } from "path"
-import { Array_filter_async } from "src/x/Array/Array_filter_async"
+import * as xlib from "@decoupled/xlib"
+
 
 /**
  * returns the command string you should call
@@ -14,7 +15,7 @@ export async function npm__yarn__pick_best_for_project(
   cwd: string,
   which = ["yarn", "npm"]
 ): Promise<"yarn" | "npm" | undefined> {
-  const available = await Array_filter_async(which, cmd_exists)
+  const available = await xlib.Array_filter_async(which, cmd_exists)
   const has_yarn_lock = existsSync(join(cwd, "yarn.lock"))
   const has_npm_lock = existsSync(join(cwd, "package-lock.json"))
   if (has_yarn_lock && available.includes("yarn")) return "yarn"

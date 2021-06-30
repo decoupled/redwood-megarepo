@@ -1,15 +1,14 @@
-import { URL_toFile } from "src/x/url/URL_toFile"
+import { lazy, memo, URLString_toFile } from "@decoupled/xlib"
+import {
+  FileSet_fromTextDocuments,
+  WorkspaceEdit_fromFileSet
+} from "src/x/vscode-languageserver-types"
 import { ExecuteCommandOptions } from "vscode-languageserver"
 import { interactive_cli_command_builder } from "../structure/interactive_cli/command_builder"
 import { interactive_cli_dry_run as dry_run } from "../structure/interactive_cli/dry_run"
 import { RedwoodCommandString } from "../structure/interactive_cli/RedwoodCommandString"
 import { VSCodeWindowUI } from "../structure/interactive_cli/ui"
 import { RWProject } from "../structure/model"
-import { lazy, memo } from "src/x/decorators"
-import {
-  FileSet_fromTextDocuments,
-  WorkspaceEdit_fromFileSet,
-} from "src/x/vscode-languageserver-types"
 import { RWLanguageServer } from "./RWLanguageServer"
 
 export const redwoodjs_commands = {
@@ -86,8 +85,8 @@ export class CommandsManager {
         fileOverrides,
       })
       const edit = WorkspaceEdit_fromFileSet(files, (f) => {
-        if (!host.existsSync(URL_toFile(f))) return undefined
-        return host.readFileSync(URL_toFile(f))
+        if (!host.existsSync(URLString_toFile(f))) return undefined
+        return host.readFileSync(URLString_toFile(f))
       })
       vscodeWindowMethods.showInformationMessage(stdout)
       await connection.workspace.applyEdit({

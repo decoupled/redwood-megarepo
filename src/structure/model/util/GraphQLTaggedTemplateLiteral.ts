@@ -1,27 +1,26 @@
+import { URLString_fromFile, lazy } from "@decoupled/xlib"
 import {
   DocumentNode,
   GraphQLSchema,
   Location as GraphQLLocation,
-  parse as parseGraphQL,
+  parse as parseGraphQL
 } from "graphql"
 import {
   getHoverInformation,
   getOutline,
   getTokenAtPosition,
-  getTypeInfo,
+  getTypeInfo
 } from "graphql-language-service-interface"
 import { ContextToken } from "graphql-language-service-parser"
 import {
   IPosition as GQLLSPosition,
   Outline,
-  OutlineTree,
+  OutlineTree
 } from "graphql-language-service-types"
 import lineColumn from "line-column"
-import { lazy } from "src/x/decorators"
-import { URL_fromFile } from "src/x/url/URL_fromFile"
 import { Position_fromTSMorphOffset } from "src/x/vscode-languageserver-types"
 import * as tsm from "ts-morph"
-import { Location as LSPLocation } from "vscode-languageserver-types"
+import { Location as LSPLocation } from "vscode-languageserver"
 import { OutlineInfoProvider } from "../types"
 
 /**
@@ -90,7 +89,7 @@ export class GraphQLTaggedTemplateLiteral {
     const offset = node.getPos() + 1 // add one to account for the quote (`)
     const startPos = Position_fromTSMorphOffset(start + offset, sf)
     const endPos = Position_fromTSMorphOffset(end + offset, sf)
-    const uri = URL_fromFile(sf.getFilePath())
+    const uri = URLString_fromFile(sf.getFilePath())
     return { uri, range: { start: startPos, end: endPos } }
   }
 

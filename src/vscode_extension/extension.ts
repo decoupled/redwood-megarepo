@@ -8,7 +8,6 @@ import { lsp_treeview_contributes } from "./treeview/outline/consts"
 import { redwoodjs_vsc } from "./redwoodjs_vsc"
 import icon from "./static/redwoodjs_logo.svg"
 import { treeview_docs_contributes } from "./treeview/docs/treeview_docs"
-import { treeview_workflow_contributes } from "./treeview/workflow/treeview_workflow"
 
 // the build target for the extension
 export const redwoodVSCodeExtension = new VSCodeExtension({
@@ -41,11 +40,6 @@ function contributes() {
   return merge([
     commands_contributes().contributes,
     lsp_treeview_contributes().contributes,
-    treeview_workflow_contributes().contributes,
     treeview_docs_contributes().contributes,
   ])
-}
-
-{
-  contributes()
 }

@@ -1,5 +1,5 @@
 import { Command, Location } from "vscode-languageserver"
-import { lazy, memo } from "src/x/decorators"
+import { lazy, memo } from "@decoupled/xlib"
 import { Command_open, TreeItem2 } from "src/x/vscode"
 
 export interface OutlineInfoProvider {

@@ -3,7 +3,7 @@ import glob from "glob"
 
 import { Paths, getPaths } from "src/internal"
 
-import { lazy } from "src/x/decorators"
+import { lazy } from "@decoupled/xlib"
 
 /**
  * The host interface allows us to decouple the "model/*"

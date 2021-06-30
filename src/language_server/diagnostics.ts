@@ -1,5 +1,6 @@
-import { debounce, memo } from "src/x/decorators"
+import { memo } from "@decoupled/xlib"
 import { ExtendedDiagnostic_groupByUri } from "src/x/vscode-languageserver-types"
+import { Debounce as debounce } from "lodash-decorators"
 
 import { RWLanguageServer } from "./RWLanguageServer"
 

@@ -1,11 +1,9 @@
+import { lazy } from "@decoupled/xlib"
 import { Command_open } from "src/x/vscode"
-import { parse as parseTOML } from "toml"
-import { Range } from "vscode-languageserver-types"
-
-import { FileNode } from "../ide"
-import { lazy } from "src/x/decorators"
 import { err } from "src/x/vscode-languageserver-types"
-
+import { parse as parseTOML } from "toml"
+import { Range } from "vscode-languageserver"
+import { FileNode } from "../ide"
 import { RWProject } from "./RWProject"
 
 export class RWTOML extends FileNode {

@@ -1,11 +1,9 @@
-import { join } from "path"
-
+import { iter } from "@decoupled/xlib"
 import { readFileSync } from "fs-extra"
 import glob from "glob"
-import * as tsm from "ts-morph"
-
-import { iter } from "src/x/Array"
+import { join } from "path"
 import { tsm_SourceFile_create_cached } from "src/x/ts-morph/tsm_SourceFile_create"
+import * as tsm from "ts-morph"
 
 export function process_env_findAll(dir: string) {
   return iter(function* () {

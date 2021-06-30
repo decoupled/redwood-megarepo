@@ -1,6 +1,6 @@
 import yargs_parser from "yargs-parser"
 
-import { lazy } from "src/x/decorators"
+import { lazy } from "@decoupled/xlib"
 
 /**
  * A value class wrapping a Redwood command string.

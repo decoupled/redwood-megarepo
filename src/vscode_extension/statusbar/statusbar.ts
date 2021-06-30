@@ -1,10 +1,10 @@
-import { lazy } from "src/x/decorators"
+import { lazy } from "@decoupled/xlib"
 import { computed, observable, reaction } from "mobx"
 import { now } from "mobx-utils"
 import vscode from "vscode"
-
 import { framework_version__installed } from "../util/framework_version__installed"
 import { framework_version__latest } from "../util/framework_version__latest"
+
 
 interface Opts {
   ctx: vscode.ExtensionContext

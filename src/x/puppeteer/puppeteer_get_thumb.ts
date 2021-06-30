@@ -1,8 +1,7 @@
 import { ensureDir, outputFile } from "fs-extra"
 import puppeteer from "puppeteer"
 import sharp from "sharp"
-import { crypto_filenameFriendlyHash } from "src/x/crypto/crypto_filenameFriendlyHash"
-import { wait } from "src/x/Promise/wait"
+import { wait, crypto_filenameFriendlyHash } from "@decoupled/xlib"
 
 export async function puppeteer_get_thumb(url: string, thumbsDir: string) {
   if (url.includes("{")) return undefined

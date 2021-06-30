@@ -1,4 +1,11 @@
-import { URL_fromFile } from "src/x/url/URL_fromFile"
+import { iter, lazy, memo, URLString_fromFile } from "@decoupled/xlib"
+import { Command_cli, Command_open } from "src/x/vscode"
+import {
+  err,
+  ExtendedDiagnostic,
+  LocationLike_toLocation,
+  Location_fromNode
+} from "src/x/vscode-languageserver-types"
 import * as tsm from "ts-morph"
 import {
   CodeAction,
@@ -6,19 +13,10 @@ import {
   Command,
   DiagnosticSeverity,
   Position,
-  WorkspaceChange,
-} from "vscode-languageserver-types"
+  WorkspaceChange
+} from "vscode-languageserver"
 import { RWError } from "../errors"
 import { CodeLensX, FileNode } from "../ide"
-import { iter } from "src/x/Array"
-import { lazy, memo } from "src/x/decorators"
-import { Command_cli, Command_open } from "src/x/vscode"
-import {
-  err,
-  ExtendedDiagnostic,
-  LocationLike_toLocation,
-  Location_fromNode,
-} from "src/x/vscode-languageserver-types"
 import { RWProject } from "./RWProject"
 import { RWRoute } from "./RWRoute"
 import { OutlineInfoProvider } from "./types"
@@ -104,7 +102,7 @@ export class RWRouter extends FileNode implements OutlineInfoProvider {
   @lazy() get quickFix_addNotFoundpage() {
     if (!this.jsxNode) return undefined
     const change = new WorkspaceChange({ documentChanges: [] })
-    let uri = URL_fromFile(this.parent.defaultNotFoundPageFilePath)
+    let uri = URLString_fromFile(this.parent.defaultNotFoundPageFilePath)
     const p = this.parent.pages.find((p) => p.basenameNoExt === "NotFoundPage")
     if (p) {
       uri = p.uri
@@ -140,7 +138,7 @@ export class RWRouter extends FileNode implements OutlineInfoProvider {
   *diagnostics() {
     if (!this.fileExists) {
       // should we assign this error to the project? to redwood.toml?
-      const uri = URL_fromFile(this.parent.projectRoot, "redwood.toml")
+      const uri = URLString_fromFile(this.parent.projectRoot, "redwood.toml")
       const message = `Routes.js does not exist`
       yield err(uri, message)
       // TODO: add quickFix (create a simple Routes.js)

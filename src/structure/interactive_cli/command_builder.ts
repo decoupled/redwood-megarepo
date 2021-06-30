@@ -1,7 +1,7 @@
 import camelcase from "camelcase"
+import { lazy, memo } from "@decoupled/xlib"
 import { RWProject } from "../model/RWProject"
 import { validateRoutePath } from "../util"
-import { lazy, memo } from "src/x/decorators"
 import { RedwoodCommandString } from "./RedwoodCommandString"
 import { UI } from "./ui"
 
@@ -88,7 +88,9 @@ class CommandBuilder {
     }
   }
 
-  prompts = new PromptHelper(this.opts)
+  @lazy() get prompts(){
+    return new PromptHelper(this.opts)
+  }
 
   @memo()
   async arg_command(): Promise<string> {

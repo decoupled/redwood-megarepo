@@ -1,3 +1,10 @@
+
+import { lazy, memo, vscode_ProviderResult_normalize } from "@decoupled/xlib"
+import { memoize } from "lodash"
+import * as vscode from "vscode"
+import { Command, Location } from "vscode-languageserver-types"
+import { Connection as LSPConnection } from "vscode-languageserver/node"
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export type VSCodeWindowMethods = Pick<
@@ -96,7 +103,7 @@ export async function TreeItem2_resolveChildren(
   item: TreeItem2
 ): Promise<TreeItem2_withResolvedChildren> {
   const { children, ...rest } = item
-  const cs = await ProviderResult_normalize(children?.())
+  const cs = await vscode_ProviderResult_normalize(children?.())
   if (typeof cs === "undefined") return { ...rest }
   const cs2 = await Promise.all(cs.map(TreeItem2_resolveChildren))
   return { ...rest, children: cs2 }
@@ -143,7 +150,7 @@ export class TreeItem2Wrapper {
     )
   }
   @memo() async children(): Promise<TreeItem2Wrapper[]> {
-    const cs = await ProviderResult_normalize(this.item.children?.())
+    const cs = await vscode_ProviderResult_normalize(this.item.children?.())
     return (cs ?? []).map((c, i) => new TreeItem2Wrapper(c, this, i))
   }
   @memo()
@@ -278,7 +285,7 @@ export function RemoteTreeDataProvider_publishOverLSPConnection(
   connection.onRequest(`${methodPrefix}getChildren`, async (id) => {
     lazyInit()
     try {
-      return await ProviderResult_normalize(tdp.getChildren(id))
+      return await vscode_ProviderResult_normalize(tdp.getChildren(id))
     } catch (e) {
       return []
     }
@@ -286,7 +293,7 @@ export function RemoteTreeDataProvider_publishOverLSPConnection(
   connection.onRequest(`${methodPrefix}getTreeItem`, async (id) => {
     lazyInit()
     try {
-      return await ProviderResult_normalize(tdp.getTreeItem(id))
+      return await vscode_ProviderResult_normalize(tdp.getTreeItem(id))
     } catch (e) {
       return { label: "(project has too many errors)", tooltip: e + "" }
     }
@@ -325,11 +332,3 @@ export function Command_cli(cmd: string, title = "run..."): Command {
 type ReplacePropTypes<T extends {}, Replacements extends {}> = {
   [K in keyof T]: K extends keyof Replacements ? Replacements[K] : T[K]
 }
-
-import { memoize } from "lodash"
-import * as vscode from "vscode"
-import { Connection as LSPConnection } from "vscode-languageserver/node"
-import { Command, Location } from "vscode-languageserver-types"
-
-import { lazy, memo } from "src/x/decorators"
-import { ProviderResult_normalize } from "./vscode/vscode_ProviderResult"

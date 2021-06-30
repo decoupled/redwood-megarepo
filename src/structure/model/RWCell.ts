@@ -1,6 +1,5 @@
-import { DiagnosticSeverity } from "vscode-languageserver-types"
-
-import { lazy } from "src/x/decorators"
+import { DiagnosticSeverity } from "vscode-languageserver"
+import { lazy } from "@decoupled/xlib"
 import { err, Range_fromNode } from "src/x/vscode-languageserver-types"
 
 import { RWComponent } from "./RWComponent"

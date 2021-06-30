@@ -1,8 +1,7 @@
 import * as tsm from "ts-morph"
 
 import { FileNode } from "../ide"
-import { iter } from "src/x/Array"
-import { lazy, memo } from "src/x/decorators"
+import { iter, lazy, memo } from "@decoupled/xlib"
 import { basenameNoExt } from "src/x/path"
 
 import { RWProject } from "./RWProject"

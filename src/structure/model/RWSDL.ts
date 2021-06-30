@@ -1,6 +1,5 @@
 import { basename } from "path"
-import { iter } from "src/x/Array"
-import { lazy, memo } from "src/x/decorators"
+import { lazy, memo, iter } from "@decoupled/xlib"
 import { err, Location_fromNode } from "src/x/vscode-languageserver-types"
 import { MarkupKind } from "vscode-languageserver"
 import { RWError } from "../errors"

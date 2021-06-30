@@ -1,20 +1,19 @@
+import { lazy } from "@decoupled/xlib"
 import { existsSync } from "fs-extra"
 import { dirname, join } from "path"
 import { language_server } from "src/language_server/language_server"
-import { lazy } from "src/x/decorators"
 import * as vscode from "vscode"
 import { commands_activate } from "./commands/commands_activate"
 import { decorations_activate } from "./decorations/decorations"
 import { USE_NEW_LANGUAGE_SERVER } from "./flags"
 import { log } from "./log"
-import { RedwoodLSPClientManager } from "./lsp_client/RedwoodLSPClientManager"
 import { lsp_path_for_project } from "./lsp_client/lsp_path_for_project"
+import { RedwoodLSPClientManager } from "./lsp_client/RedwoodLSPClientManager"
 import { new_version_message } from "./new_version_message"
 import { redwoodjs_vsc_enabled } from "./redwoodjs_vsc_enabled"
 import { statusbar_activate } from "./statusbar/statusbar"
 import { telemetry_activate } from "./telemetry/telemetry"
 import { treeview_docs_activate } from "./treeview/docs/treeview_docs"
-import { treeview_workflow_activate } from "./treeview/workflow/treeview_workflow"
 import { framework_version__installed } from "./util/framework_version__installed"
 
 export async function redwoodjs_vsc(ctx: vscode.ExtensionContext) {
@@ -28,7 +27,6 @@ export async function redwoodjs_vsc(ctx: vscode.ExtensionContext) {
   const manager = new RedwoodVSCProjectManager(ctx)
   ctx.subscriptions.push(manager)
   commands_activate(ctx)
-  treeview_workflow_activate(ctx)
   treeview_docs_activate(ctx)
 }
 

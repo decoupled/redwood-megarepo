@@ -29,7 +29,7 @@ describe("Redwood Project Model", () => {
     project.sdls.length //?
     const ds = await project.collectDiagnostics()
     ds.length //?
-    const uri = URL_fromFile(projectRoot, "api/src/graphql/todos.sdl.js") //?
+    const uri = URLString_fromFile(projectRoot, "api/src/graphql/todos.sdl.js") //?
     const node = await project.findNode(uri)
     expect(node).toBeDefined()
     expect(node.id).toEqual(uri)
@@ -92,7 +92,7 @@ import {
   getOutline,
 } from "graphql-language-service-interface"
 import { Position } from "graphql-language-service-utils"
-import { URL_fromFile } from "src/x/url/URL_fromFile"
+import { URLString_fromFile } from "@decoupled/xlib"
 
 describe.only("graphql stuff", async () => {
   console.log("hello world")

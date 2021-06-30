@@ -1,3 +1,9 @@
+
+import { Position_fromOffsetOrFail, URLString_fromFile, URLString_toFile } from "@decoupled/xlib"
+import { existsSync, readFileSync } from "fs-extra"
+import { Location, Range } from "vscode-languageserver"
+
+
 /**
  * find "env()" expressions in a prisma file using regex
  * @param prismaSchemaFilePath
@@ -5,8 +11,8 @@
 export function* prisma_parseEnvExpressionsInFile(
   prismaSchemaFilePath: string
 ) {
-  const uri = URL_fromFile(prismaSchemaFilePath)
-  const file = URL_toFile(uri) // convert back and forth in case someone passed a uri
+  const uri = URLString_fromFile(prismaSchemaFilePath)
+  const file = URLString_toFile(uri) // convert back and forth in case someone passed a uri
   if (!existsSync(file)) return [] // fail silently
   const src = readFileSync(file).toString()
   const exprs = prisma_parseEnvExpressions(src)
@@ -45,9 +51,3 @@ export function* prisma_parseEnvExpressions(src: string) {
   r
   //expect(r).toEqual({ range, key: "foo" })
 }
-
-import { existsSync, readFileSync } from "fs-extra"
-import { Location, Range } from "vscode-languageserver"
-import { URL_fromFile } from "./url/URL_fromFile"
-import { URL_toFile } from "./url/URL_toFile"
-import { Position_fromOffsetOrFail } from "./vscode-languageserver-types"

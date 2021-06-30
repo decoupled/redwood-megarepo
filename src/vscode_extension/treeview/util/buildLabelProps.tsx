@@ -1,4 +1,4 @@
-import { vscode_ThemeIcon_memo as icon } from "src/x/vscode/vscode_ThemeIcon_memo"
+import { vscode_ThemeIcon_memo as icon } from "@decoupled/xlib"
 import { SpinnerUtil } from "./SpinnerUtil"
 
 export function buildLabelProps({

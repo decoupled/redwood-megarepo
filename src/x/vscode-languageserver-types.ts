@@ -1,57 +1,21 @@
-export function Range_contains(range: Range, pos: Position): boolean {
-  if (Position_compare(range.start, pos) === "greater") return false
-  if (Position_compare(range.end, pos) === "smaller") return false
-  return true
-}
 
-export function Range_overlaps(
-  range1: Range,
-  range2: Range,
-  consider0000: boolean
-): boolean {
-  if (consider0000) {
-    if (Range_is0000(range1) || Range_is0000(range2)) return true
-  }
-  const { start, end } = range2
-  if (Range_contains(range1, start)) return true
-  if (Range_contains(range2, end)) return true
-  return true
-}
-
-/**
- * p1 is greater|smaller|equal than/to p2
- * @param p1
- * @param p2
- */
-export function Position_compare(
-  p1: Position,
-  p2: Position
-): "greater" | "smaller" | "equal" {
-  if (p1.line > p2.line) return "greater"
-  if (p2.line > p1.line) return "smaller"
-  if (p1.character > p2.character) return "greater"
-  if (p2.character > p1.character) return "smaller"
-  return "equal"
-}
-
-/**
- * Create a new position relative to this position.
- *
- * @param lineDelta Delta value for the line value, default is `0`.
- * @param characterDelta Delta value for the character value, default is `0`.
- * @return A position which line and character is the sum of the current line and
- * character and the corresponding deltas.
- */
-export function Position_translate(
-  pos: Position,
-  lineDelta = 0,
-  characterDelta = 0
-): Position {
-  return {
-    line: pos.line + lineDelta,
-    character: pos.character + characterDelta,
-  }
-}
+import { Range_equals, Range_full, URLString_fromFile } from "@decoupled/xlib"
+import { groupBy, mapValues, uniqBy } from "lodash"
+import * as tsm from "ts-morph"
+import { TextDocuments } from "vscode-languageserver"
+import { TextDocument } from "vscode-languageserver-textdocument"
+import {
+  CodeAction,
+  CodeActionContext,
+  Diagnostic,
+  DiagnosticSeverity,
+  DocumentUri,
+  Location,
+  Position,
+  Range,
+  WorkspaceChange,
+  WorkspaceEdit
+} from "vscode-languageserver-types"
 
 export function Range_fromNode(node: tsm.Node): Range {
   const start = Position_fromTSMorphOffset(
@@ -64,18 +28,11 @@ export function Range_fromNode(node: tsm.Node): Range {
 
 export function Location_fromNode(node: tsm.Node): Location {
   return {
-    uri: URL_fromFile(node.getSourceFile().getFilePath()),
+    uri: URLString_fromFile(node.getSourceFile().getFilePath()),
     range: Range_fromNode(node),
   }
 }
 
-export function Location_fromFilePath(filePath: string): Location {
-  return { uri: URL_fromFile(filePath), range: Range.create(0, 0, 0, 0) }
-}
-
-{
-  Location_fromFilePath("/path/to/file.ts")
-}
 
 /**
  * returns vscode-terminal-friendly (clickable) link with line/column information
@@ -111,7 +68,7 @@ export type LocationLike = tsm.Node | string | Location | ExtendedDiagnostic
 
 export function LocationLike_toLocation(x: LocationLike): Location {
   if (typeof x === "string") {
-    return { uri: URL_fromFile(x), range: Range.create(0, 0, 0, 0) }
+    return { uri: URLString_fromFile(x), range: Range.create(0, 0, 0, 0) }
   }
   if (typeof x === "object") {
     if (x instanceof tsm.Node) return Location_fromNode(x)
@@ -122,27 +79,6 @@ export function LocationLike_toLocation(x: LocationLike): Location {
   throw new Error()
 }
 
-export function Location_overlaps(
-  loc1: Location,
-  loc2: Location,
-  consider0000 = false
-) {
-  if (loc1.uri !== loc2.uri) return false
-  return Range_overlaps(loc1.range, loc2.range, consider0000)
-}
-
-/**
- * by convention, the range [0,0,0,0] means the complete document
- * @param range
- */
-function Range_is0000(range: Range): boolean {
-  const { start, end } = range
-  return Position_is00(start) && Position_is00(end)
-}
-
-function Position_is00(pos: Position): boolean {
-  return pos.character === 0 && pos.line === 0
-}
 
 export function ExtendedDiagnostic_is(x: unknown): x is ExtendedDiagnostic {
   if (typeof x !== "object") return false
@@ -194,24 +130,6 @@ export function Position_fromTSMorphOffset(
   return { character: column - 1, line: line - 1 }
 }
 
-export function Position_fromOffset(
-  offset: number,
-  text: string
-): Position | undefined {
-  const res = lc(text).fromIndex(offset)
-  if (!res) return undefined
-  const { line, col } = res
-  return { character: col - 1, line: line - 1 }
-}
-
-export function Position_fromOffsetOrFail(
-  offset: number,
-  text: string
-): Position {
-  const p = Position_fromOffset(offset, text)
-  if (!p) throw new Error("Position_fromOffsetOrFail")
-  return p
-}
 
 /**
  * The Diagnostic interface defined in vscode-languageserver-types
@@ -260,13 +178,6 @@ export function Diagnostic_compare(d1: Diagnostic, d2: Diagnostic): boolean {
   return true
 }
 
-export function Range_equals(r1: Range, r2: Range): boolean {
-  return toArr(r1).join(",") === toArr(r2).join(",")
-  function toArr(r: Range) {
-    return [r.start.line, r.start.character, r.end.line, r.end.character]
-  }
-}
-
 function DiagnosticSeverity_getLabel(severity?: DiagnosticSeverity): string {
   const { Information, Error, Hint, Warning } = DiagnosticSeverity
   const labels = {
@@ -302,7 +213,7 @@ export function ExtendedDiagnostic_format(
   const getSeverityLabel = opts?.getSeverityLabel ?? DiagnosticSeverity_getLabel
 
   let base = "file://"
-  if (cwd) base = URL_fromFile(cwd)
+  if (cwd) base = URLString_fromFile(cwd)
   if (!base.endsWith("/")) base += "/"
   const file = LocationLike_toTerminalLink(d).substr(base.length)
 
@@ -355,31 +266,3 @@ export function WorkspaceEdit_fromFileSet(
   }
   return change.edit
 }
-
-export function Range_full(text: string, cr = "\n"): Range {
-  if (text === "") return Range.create(0, 0, 0, 0)
-  const lines = text.split(cr)
-  if (lines.length === 0) return Range.create(0, 0, 0, 0)
-  const start = Position.create(0, 0)
-  const end = Position.create(lines.length - 1, lines[lines.length - 1].length)
-  return Range.create(start, end)
-}
-
-import lc from "line-column"
-import { groupBy, mapValues, uniqBy } from "lodash"
-import * as tsm from "ts-morph"
-import { TextDocuments } from "vscode-languageserver"
-import { TextDocument } from "vscode-languageserver-textdocument"
-import {
-  CodeAction,
-  CodeActionContext,
-  Diagnostic,
-  DiagnosticSeverity,
-  DocumentUri,
-  Location,
-  Position,
-  Range,
-  WorkspaceChange,
-  WorkspaceEdit,
-} from "vscode-languageserver-types"
-import { URL_fromFile } from "./url/URL_fromFile"

@@ -1,3 +1,36 @@
+
+import { lazy, memo, URLString_fromFile } from "@decoupled/xlib"
+import { existsSync } from "fs-extra"
+import { partition } from "lodash"
+import { join } from "path"
+import { getPaths, processPagesDir } from "src/internal/paths"
+import {
+  followsDirNameConvention,
+  isCellFileName,
+  isLayoutFileName,
+  isNotArtifact
+} from "src/x/path"
+import { tsm_Project_redwoodFriendly } from "src/x/ts-morph/tsm_Project_redwoodFriendly"
+import { ts_findTSConfig } from "src/x/ts/ts_findTSConfig"
+import { Command_cli, Command_open } from "src/x/vscode"
+import * as tsm from "ts-morph"
+import { DefaultHost, Host } from "../hosts"
+import { BaseNode } from "../ide"
+import { RWCell } from "./RWCell"
+import { RWComponent } from "./RWComponent"
+import { RWEnvHelper } from "./RWEnvHelper"
+import { RWFunction } from "./RWFunction"
+import { RWGraphQLHelper } from "./RWGraphQLHelper"
+import { RWLayout } from "./RWLayout"
+import { RWPage } from "./RWPage"
+import { RWRouter } from "./RWRouter"
+import { RWSchema } from "./RWSchema"
+import { RWSDL } from "./RWSDL"
+import { RWService } from "./RWService"
+import { RWTOML } from "./RWTOML"
+import { OutlineInfoProvider } from "./types"
+
+
 export interface RWProjectOptions {
   projectRoot: string
   host?: Host
@@ -22,7 +55,7 @@ export class RWProject extends BaseNode implements OutlineInfoProvider {
   }
 
   @lazy() get id() {
-    return URL_fromFile(this.projectRoot)
+    return URLString_fromFile(this.projectRoot)
   }
 
   children() {
@@ -329,35 +362,3 @@ function grp(
 }
 
 const allFilesGlob = "/**/*.{js,jsx,ts,tsx}"
-
-import { existsSync } from "fs-extra"
-import { partition } from "lodash"
-import { join } from "path"
-import { getPaths, processPagesDir } from "src/internal/paths"
-import { lazy, memo } from "src/x/decorators"
-import {
-  followsDirNameConvention,
-  isCellFileName,
-  isLayoutFileName,
-  isNotArtifact,
-} from "src/x/path"
-import { tsm_Project_redwoodFriendly } from "src/x/ts-morph/tsm_Project_redwoodFriendly"
-import { ts_findTSConfig } from "src/x/ts/ts_findTSConfig"
-import { URL_fromFile } from "src/x/url/URL_fromFile"
-import { Command_cli, Command_open } from "src/x/vscode"
-import * as tsm from "ts-morph"
-import { DefaultHost, Host } from "../hosts"
-import { BaseNode } from "../ide"
-import { RWCell } from "./RWCell"
-import { RWComponent } from "./RWComponent"
-import { RWEnvHelper } from "./RWEnvHelper"
-import { RWFunction } from "./RWFunction"
-import { RWGraphQLHelper } from "./RWGraphQLHelper"
-import { RWLayout } from "./RWLayout"
-import { RWPage } from "./RWPage"
-import { RWRouter } from "./RWRouter"
-import { RWSchema } from "./RWSchema"
-import { RWSDL } from "./RWSDL"
-import { RWService } from "./RWService"
-import { RWTOML } from "./RWTOML"
-import { OutlineInfoProvider } from "./types"
