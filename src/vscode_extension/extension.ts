@@ -4,7 +4,6 @@ import { language_server } from "src/language_server/language_server"
 import vscode from "vscode"
 import { redwoodjs_vsc } from "./redwoodjs_vsc"
 import icon from "./static/redwoodjs_vscode_icon.png"
-import { lsp_treeview_contributes_meta } from "./treeview/outline/consts"
 
 // the build target for the extension
 export const redwoodVSCodeExtension = new VSCodeExtension({
@@ -24,7 +23,6 @@ export const redwoodVSCodeExtension = new VSCodeExtension({
 
 // the entrypoint
 function main() {
-  lsp_treeview_contributes_meta.keep()
   return {
     activate(ctx: vscode.ExtensionContext) {
       redwoodjs_vsc(ctx)

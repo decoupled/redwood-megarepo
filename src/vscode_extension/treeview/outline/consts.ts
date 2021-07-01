@@ -1,18 +1,27 @@
-import { VSCodeMeta } from "lambdragon"
-
+import { VSCodeMeta, VSCodeView, VSCodeViewContainer } from "lambdragon"
 import { mapValues, values } from "lodash"
-
 import { redwoodjs_vsc_enabled } from "../../redwoodjs_vsc_enabled"
-
 import { icon_rel_path } from "./icon_rel_path"
 
-export const redwoodjs_treeview_id = "redwoodjs.treeview"
-export const redwoodjs_treeview_data_id = "redwoodjs.treeview.data"
-export const redwoodjs_treeview_docs_id = "redwoodjs.treeview.docs"
-export const redwoodjs_treeview_logs_id = "redwoodjs.treeview.logs"
+export const redwoodjs_view_container = new VSCodeViewContainer({
+  id: "redwood",
+  title: "Redwood.js",
+  icon: "assets/icons2/redwood.svg",
+  _parent: "activitybar",
+})
+
+export const redwoodjs_outline_view = new VSCodeView(() => {
+  menus_meta.keep()
+  return {
+    id: "redwoodjs.views.outline",
+    name: "Project Outline",
+    when: redwoodjs_vsc_enabled,
+    _container: redwoodjs_view_container,
+  }
+})
 
 export function contextValue(str: string): string {
-  return `${redwoodjs_treeview_id}.contextValue.${str}`
+  return `${redwoodjs_outline_view.id}.contextValue.${str}`
 }
 
 export const commands = addCommandPropertyFromKey(
@@ -68,7 +77,7 @@ export const commands = addCommandPropertyFromKey(
       title: "rw db up",
     },
   },
-  `${redwoodjs_treeview_id}.commands.`
+  `${redwoodjs_outline_view.id}.commands.`
 )
 
 export type Command = keyof typeof commands
@@ -94,46 +103,21 @@ export const itemTypes: {
 
 export type NodeType = keyof typeof itemTypes
 
-export const lsp_treeview_contributes_meta = new VSCodeMeta(() => {
-  return lsp_treeview_contributes().contributes
-})
-
-function lsp_treeview_contributes() {
-  const isThisView = `view == ${redwoodjs_treeview_id}`
+const menus_meta = new VSCodeMeta(() => {
+  const isThisView = `view == ${redwoodjs_outline_view.id}`
   return {
-    contributes: {
-      commands: [...values(commands)],
-      menus: {
-        "view/title": [
-          {
-            command: commands.refresh.command,
-            when: isThisView,
-            group: "navigation",
-          },
-        ],
-        "view/item/context": [...addMenus2()],
-      },
-      views: {
-        redwood: [
-          {
-            id: redwoodjs_treeview_id,
-            name: "Project Outline",
-            when: redwoodjs_vsc_enabled,
-          },
-        ],
-      },
-      viewsContainers: {
-        activitybar: [
-          {
-            id: "redwood",
-            title: "Redwood.js",
-            icon: "assets/icons2/redwood.svg",
-          },
-        ],
-      },
+    commands: [...values(commands)],
+    menus: {
+      "view/title": [
+        {
+          command: commands.refresh.command,
+          when: isThisView,
+          group: "navigation",
+        },
+      ],
+      "view/item/context": [...addMenus2()],
     },
   }
-
   function* addMenus2() {
     for (const nodeType of Object.keys(itemTypes)) {
       const nn = itemTypes[nodeType]
@@ -153,14 +137,7 @@ function lsp_treeview_contributes() {
       }
     }
   }
-}
-
-// function icon(name: string) {
-//   return {
-//     light: `assets/icons/light/${name}.svg`,
-//     dark: `assets/icons/dark/${name}.svg`,
-//   }
-// }
+})
 
 function addCommandPropertyFromKey<T extends Record<string, any>>(
   cmds: T,

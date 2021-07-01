@@ -3,9 +3,6 @@ import { crypto_filenameFriendlyHash } from "@decoupled/xlib"
 import { degit_with_retries } from "src/x/degit/degit_with_retries"
 import { redwoodVSCodeExtension } from "./extension"
 
-
-
-
 {
   // openExtensionOn("git@github.com:redwoodjs/example-blog.git")
   // openExtensionOn("git@github.com:redwoodjs/example-todo.git")

@@ -1,9 +1,9 @@
-import { cloneDeep } from "lodash"
 import { vscode_ThemeIcon_memo } from "@decoupled/xlib"
+import { cloneDeep } from "lodash"
 import vscode from "vscode"
 import { LanguageClient } from "vscode-languageclient/node"
 import { log } from "../../log"
-import { contextValue, redwoodjs_treeview_id } from "./consts"
+import { contextValue, redwoodjs_outline_view } from "./consts"
 import { icon_uri } from "./icon_uri"
 import { register_commands } from "./register_commands"
 
@@ -21,7 +21,7 @@ export function treeview_outline_setup(opts: {
     }
   })
   const treeItemCache: any = {}
-  vscode.window.createTreeView(redwoodjs_treeview_id, {
+  vscode.window.createTreeView(redwoodjs_outline_view.id, {
     treeDataProvider: {
       async getChildren(id: string | undefined): Promise<string[]> {
         try {
