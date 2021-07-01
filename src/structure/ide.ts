@@ -1,9 +1,14 @@
-import { ArrayLike, ArrayLike_normalize, iter, lazy, memo, URLString_fromFile } from "@decoupled/xlib"
+import {
+  ArrayLike,
+  ArrayLike_normalize,
+  iter,
+  lazy,
+  memo,
+  URLString_fromFile,
+} from "@decoupled/xlib"
 import { readdirSync } from "fs-extra"
 import { basename, dirname, extname, join } from "path"
-import {
-  Array_collectInstancesOf
-} from "src/x/Array"
+import { Array_collectInstancesOf } from "src/x/Array"
 import { basenameNoExt, followsDirNameConvention } from "src/x/path"
 import { tsm_Project_redwoodFriendly } from "src/x/ts-morph/tsm_Project_redwoodFriendly"
 import { tsm_SourceFile_create_cached } from "src/x/ts-morph/tsm_SourceFile_create"
@@ -16,7 +21,8 @@ import {
   DocumentUri,
   Hover,
   Location,
-  Range, TextDocuments
+  Range,
+  TextDocuments,
 } from "vscode-languageserver"
 import { TextDocument } from "vscode-languageserver-textdocument"
 import { DefaultHost, Host } from "./hosts"

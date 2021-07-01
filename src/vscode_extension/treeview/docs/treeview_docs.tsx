@@ -1,11 +1,24 @@
-
-import { vscode_react_TreeItem as TreeItem, vscode_react_TreeItem_render as TreeItem_render, vscode_ThemeIcon_memo as icon } from "@decoupled/xlib"
+import {
+  vscode_react_TreeItem as TreeItem,
+  vscode_react_TreeItem_render as TreeItem_render,
+  vscode_ThemeIcon_memo as icon,
+} from "@decoupled/xlib"
+import { VSCodeView } from "lambdragon"
 import { memoize } from "lodash"
 import React from "react"
 import { redwoodjs_vsc_enabled } from "src/vscode_extension/redwoodjs_vsc_enabled"
 import vscode from "vscode"
 
-const treeview_docs_id = "redwoodjs.treeview.docs"
+export function treeview_docs_activate(ctx: vscode.ExtensionContext) {
+  treeview_docs_get(ctx)
+}
+
+const docs_view = new VSCodeView({
+  id: "redwoodjs.views.docs",
+  name: "Docs",
+  when: redwoodjs_vsc_enabled,
+  _container: "redwood",
+})
 
 const treeview_docs_get = memoize((ctx: vscode.ExtensionContext) => {
   const ll = links.map(([label, icn, url]) => (
@@ -23,7 +36,7 @@ const treeview_docs_get = memoize((ctx: vscode.ExtensionContext) => {
     />
   ))
 
-  return TreeItem_render(treeview_docs_id, <>{ll}</>)
+  return TreeItem_render(docs_view.id, <>{ll}</>)
 })
 
 const links = [
@@ -59,34 +72,4 @@ async function startSearch() {
     res
   )}`
   vscode.env.openExternal(vscode.Uri.parse(url))
-}
-
-export function treeview_docs_activate(ctx: vscode.ExtensionContext) {
-  treeview_docs_get(ctx)
-}
-
-export function treeview_docs_contributes() {
-  const c1 = treeview_docs_contributes_()
-  return c1
-  // return merge(c1, DevServerUI_contributes(), menus_contributes())
-}
-
-{
-  treeview_docs_contributes()
-}
-
-function treeview_docs_contributes_() {
-  return {
-    contributes: {
-      views: {
-        redwood: [
-          {
-            id: treeview_docs_id,
-            name: "Docs",
-            when: redwoodjs_vsc_enabled,
-          },
-        ],
-      },
-    },
-  }
 }

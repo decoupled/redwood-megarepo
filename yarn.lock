@@ -4660,13 +4660,14 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-lambdragon@^0.0.38:
-  version "0.0.38"
-  resolved "https://registry.yarnpkg.com/lambdragon/-/lambdragon-0.0.38.tgz#441b6aa7018dfb5d55406e55744228908e2442d8"
-  integrity sha512-HUIDyZ71RfmELvNCWxk+ca9zByNvvFwEgWX13qZVCiEDxUF4lsCxV+fneHx2r/Z2CjOiiopW0eDXlRwJOGb+Qg==
+lambdragon@^0.0.40:
+  version "0.0.40"
+  resolved "https://registry.yarnpkg.com/lambdragon/-/lambdragon-0.0.40.tgz#0991385b3c4232fb7a9d0b4367e1b764a31bdaa8"
+  integrity sha512-p1qPdWLbBGlpeTm+Q1mtGs61HB4YY8D2nAoRAEAdDy0oOTVe1OvRGfZPG648FXOIbeWss5/uLS/L3bARNiC52w==
   dependencies:
     cote "^1.0.2"
     lazy-get-decorator "^2.1.0"
+    lodash-decorators "^6.0.1"
     ts-morph "^10.1.0"
     typescript "4.2.*"
 

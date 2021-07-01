@@ -2,12 +2,9 @@ import { VSCodeExtension } from "lambdragon"
 import { join } from "path"
 import { language_server } from "src/language_server/language_server"
 import vscode from "vscode"
-import merge from "webpack-merge"
-import { commands_contributes } from "./commands/commands"
-import { lsp_treeview_contributes } from "./treeview/outline/consts"
 import { redwoodjs_vsc } from "./redwoodjs_vsc"
-import icon from "./static/redwoodjs_logo.svg"
-import { treeview_docs_contributes } from "./treeview/docs/treeview_docs"
+import icon from "./static/redwoodjs_vscode_icon.png"
+import { lsp_treeview_contributes_meta } from "./treeview/outline/consts"
 
 // the build target for the extension
 export const redwoodVSCodeExtension = new VSCodeExtension({
@@ -20,26 +17,18 @@ export const redwoodVSCodeExtension = new VSCodeExtension({
   description: "Redwood IDE",
   categories: ["Other"],
   icon,
-  contributes: contributes() as any,
-  engines: { vscode: "^1.53.0" },
+  engines: { vscode: "^1.57.1" },
   deps: [language_server],
   staticDir: join(__dirname, "static"),
 })
 
 // the entrypoint
 function main() {
+  lsp_treeview_contributes_meta.keep()
   return {
     activate(ctx: vscode.ExtensionContext) {
       redwoodjs_vsc(ctx)
     },
     deactivate() {},
   }
-}
-
-function contributes() {
-  return merge([
-    commands_contributes().contributes,
-    lsp_treeview_contributes().contributes,
-    treeview_docs_contributes().contributes,
-  ])
 }

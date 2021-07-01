@@ -1,3 +1,5 @@
+import { VSCodeMeta } from "lambdragon"
+
 import { mapValues, values } from "lodash"
 
 import { redwoodjs_vsc_enabled } from "../../redwoodjs_vsc_enabled"
@@ -92,7 +94,11 @@ export const itemTypes: {
 
 export type NodeType = keyof typeof itemTypes
 
-export function lsp_treeview_contributes() {
+export const lsp_treeview_contributes_meta = new VSCodeMeta(() => {
+  return lsp_treeview_contributes().contributes
+})
+
+function lsp_treeview_contributes() {
   const isThisView = `view == ${redwoodjs_treeview_id}`
   return {
     contributes: {
