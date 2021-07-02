@@ -1,11 +1,12 @@
 import vscode from "vscode"
+import { ids } from "../util/ids"
 import { commands_generate, commands_show_outline } from "./commands"
 
-export function commands_activate(ctx: vscode.ExtensionContext) {
+export function commands_activate(ctx: vscode.ExtensionContext): void {
   const { executeCommand } = vscode.commands
   ctx.subscriptions.push(
     commands_generate.register(async () => {
-      executeCommand("redwoodjs.cli", "generate...")
+      executeCommand(ids.redwoodjs.cli.$id, "generate...")
     }),
     commands_show_outline.register(async () => {
       // TODO: reveal outline

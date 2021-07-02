@@ -4,7 +4,7 @@ import { now } from "mobx-utils"
 import vscode from "vscode"
 import { framework_version__installed } from "../util/framework_version__installed"
 import { framework_version__latest } from "../util/framework_version__latest"
-
+import { ids } from "../util/ids"
 
 interface Opts {
   ctx: vscode.ExtensionContext
@@ -19,7 +19,7 @@ export function statusbar_activate(opts: Opts) {
 class RedwoodjsStatusBarManager {
   constructor(private opts: Opts) {
     const d1 = vscode.commands.registerCommand(
-      "_redwoodjs.show_new_version_message",
+      ids._redwoodjs.commands.show_new_version_message.$id,
       async () => {
         if (!this.installedFrameworkVersion) {
           return
@@ -91,7 +91,7 @@ class RedwoodjsStatusBarManager {
       100
     )
     si.text = this.statusBarItemText
-    si.command = "_redwoodjs.show_new_version_message"
+    si.command = ids._redwoodjs.commands.show_new_version_message.$id
     si.show()
     this.sub(si)
     return si

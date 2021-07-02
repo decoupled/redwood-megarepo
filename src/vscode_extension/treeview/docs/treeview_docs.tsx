@@ -6,7 +6,7 @@ import {
 import { VSCodeView } from "lambdragon"
 import { memoize } from "lodash"
 import React from "react"
-import { redwoodjs_vsc_enabled } from "src/vscode_extension/redwoodjs_vsc_enabled"
+import { ids } from "src/vscode_extension/util/ids"
 import vscode from "vscode"
 
 export function treeview_docs_activate(ctx: vscode.ExtensionContext) {
@@ -14,9 +14,9 @@ export function treeview_docs_activate(ctx: vscode.ExtensionContext) {
 }
 
 const docs_view = new VSCodeView({
-  id: "redwoodjs.views.docs",
+  id: ids.redwoodjs.views.docs.$id,
   name: "Docs",
-  when: redwoodjs_vsc_enabled,
+  when: ids.redwoodjs.flags.redwoodjs_project_detected.$id,
   _container: "redwood",
 })
 

@@ -1,7 +1,8 @@
 import { lazy, memo, URLString_toFile } from "@decoupled/xlib"
+import { ids } from "src/vscode_extension/util/ids"
 import {
   FileSet_fromTextDocuments,
-  WorkspaceEdit_fromFileSet
+  WorkspaceEdit_fromFileSet,
 } from "src/x/vscode-languageserver-types"
 import { ExecuteCommandOptions } from "vscode-languageserver"
 import { interactive_cli_command_builder } from "../structure/interactive_cli/command_builder"
@@ -11,18 +12,12 @@ import { VSCodeWindowUI } from "../structure/interactive_cli/ui"
 import { RWProject } from "../structure/model"
 import { RWLanguageServer } from "./RWLanguageServer"
 
-export const redwoodjs_commands = {
-  "redwoodjs.cli": "redwoodjs.cli",
-}
-
-export type CommandID = keyof typeof redwoodjs_commands
-
 export class CommandsManager {
   constructor(public server: RWLanguageServer) {}
 
   @lazy() get options(): ExecuteCommandOptions {
     return {
-      commands: Object.keys(redwoodjs_commands),
+      commands: [ids.redwoodjs.cli.$id],
       workDoneProgress: true,
     }
   }
@@ -30,7 +25,7 @@ export class CommandsManager {
   @memo() start() {
     const { connection } = this.server
     connection.onExecuteCommand(async (params) => {
-      if (params.command === redwoodjs_commands["redwoodjs.cli"]) {
+      if (params.command === ids.redwoodjs.cli.$id) {
         const [cmd, cwd] = params.arguments ?? []
         await this.command__cli(cmd, cwd)
       }

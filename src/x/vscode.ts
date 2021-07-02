@@ -1,6 +1,6 @@
-
 import { lazy, memo, vscode_ProviderResult_normalize } from "@decoupled/xlib"
 import { memoize } from "lodash"
+import { ids } from "src/vscode_extension/util/ids"
 import * as vscode from "vscode"
 import { Command, Location } from "vscode-languageserver-types"
 import { Connection as LSPConnection } from "vscode-languageserver/node"
@@ -325,7 +325,7 @@ export function Command_cli(cmd: string, title = "run..."): Command {
   cmd = cmd.trim()
   if (!(cmd.startsWith("rw") || cmd.startsWith("redwood")))
     cmd = "redwood " + cmd
-  return { command: "redwoodjs.cli", arguments: [cmd], title }
+  return { command: ids.redwoodjs.cli.$id, arguments: [cmd], title }
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types

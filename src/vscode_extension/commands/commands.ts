@@ -1,21 +1,20 @@
 import { VSCodeCommand } from "lambdragon"
-import { redwoodjs_vsc_enabled } from "../redwoodjs_vsc_enabled"
+import { ids } from "../util/ids"
 
 const category = "Redwood"
 
-const base = "redwoodjs.commands"
-
-const _commandPalette_when = redwoodjs_vsc_enabled + "==true"
+const _commandPalette_when =
+  ids.redwoodjs.flags.redwoodjs_project_detected.$id + "==true"
 
 export const commands_show_outline = new VSCodeCommand({
-  command: base + ".outline",
+  command: ids.redwoodjs.commands.outline.$id,
   title: "Show Project Outline",
   category,
   _commandPalette_when,
 })
 
 export const commands_generate = new VSCodeCommand({
-  command: base + ".generate",
+  command: ids.redwoodjs.commands.generate.$id,
   title: "Generate...",
   // _doc: `Calls "$ redwood generate" in interactive mode.
   //   Generated files will not be written directly to disk. Instead, VSCode's workspace edit API will be used.
@@ -25,7 +24,7 @@ export const commands_generate = new VSCodeCommand({
 })
 
 export const commands_cli = new VSCodeCommand({
-  command: "redwoodjs.cli", // delegate to the LSP directly
+  command: ids.redwoodjs.cli.$id, // delegate to the LSP directly
   title: "Interactive CLI...",
   // _doc: `
   //   Starts the Redwood CLI in interactive mode.

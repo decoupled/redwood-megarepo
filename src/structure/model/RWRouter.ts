@@ -1,10 +1,11 @@
 import { iter, lazy, memo, URLString_fromFile } from "@decoupled/xlib"
+import { ids } from "src/vscode_extension/util/ids"
 import { Command_cli, Command_open } from "src/x/vscode"
 import {
   err,
   ExtendedDiagnostic,
   LocationLike_toLocation,
-  Location_fromNode
+  Location_fromNode,
 } from "src/x/vscode-languageserver-types"
 import * as tsm from "ts-morph"
 import {
@@ -13,7 +14,7 @@ import {
   Command,
   DiagnosticSeverity,
   Position,
-  WorkspaceChange
+  WorkspaceChange,
 } from "vscode-languageserver"
 import { RWError } from "../errors"
 import { CodeLensX, FileNode } from "../ide"
@@ -86,7 +87,7 @@ export class RWRouter extends FileNode implements OutlineInfoProvider {
         range: location.range,
         command: Command.create(
           "Create Page...",
-          "redwoodjs.cli",
+          ids.redwoodjs.cli.$id,
           "generate page...",
           this.parent.projectRoot
         ),

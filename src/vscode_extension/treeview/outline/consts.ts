@@ -1,6 +1,6 @@
-import { VSCodeMeta, VSCodeView, VSCodeViewContainer } from "lambdragon"
+import { VSCodeMeta, VSCodeView, VSCodeViewContainer, keep } from "lambdragon"
 import { mapValues, values } from "lodash"
-import { redwoodjs_vsc_enabled } from "../../redwoodjs_vsc_enabled"
+import { ids } from "src/vscode_extension/util/ids"
 import { icon_rel_path } from "./icon_rel_path"
 
 export const redwoodjs_view_container = new VSCodeViewContainer({
@@ -11,11 +11,11 @@ export const redwoodjs_view_container = new VSCodeViewContainer({
 })
 
 export const redwoodjs_outline_view = new VSCodeView(() => {
-  menus_meta.keep()
+  keep(menus_meta)
   return {
-    id: "redwoodjs.views.outline",
+    id: ids.redwoodjs.views.outline.$id,
     name: "Project Outline",
-    when: redwoodjs_vsc_enabled,
+    when: ids.redwoodjs.flags.redwoodjs_project_detected.$id,
     _container: redwoodjs_view_container,
   }
 })
@@ -77,7 +77,7 @@ export const commands = addCommandPropertyFromKey(
       title: "rw db up",
     },
   },
-  `${redwoodjs_outline_view.id}.commands.`
+  `_${redwoodjs_outline_view.id}.internal_menu_commands.`
 )
 
 export type Command = keyof typeof commands
@@ -115,10 +115,10 @@ const menus_meta = new VSCodeMeta(() => {
           group: "navigation",
         },
       ],
-      "view/item/context": [...addMenus2()],
+      "view/item/context": [...genMenus()],
     },
   }
-  function* addMenus2() {
+  function* genMenus() {
     for (const nodeType of Object.keys(itemTypes)) {
       const nn = itemTypes[nodeType]
       const when = `${isThisView} && viewItem == ${contextValue(nodeType)}`
