@@ -4,11 +4,20 @@ import { degit_with_retries } from "src/x/degit/degit_with_retries"
 import { redwoodVSCodeExtension } from "./extension"
 
 {
+  // the example-blog
   // openExtensionOn("git@github.com:redwoodjs/example-blog.git")
   // openExtensionOn("git@github.com:redwoodjs/example-todo.git")
   redwoodVSCodeExtension.dev.buildAndOpen({
     openOnFolder: "/Users/aldo/com.github/redwoodjs/example-blog",
-    disableOtherExtensions: true,
+    disableOtherExtensions: false,
+  })
+}
+
+{
+  // the actual redwood project (to test contributor mode)
+  redwoodVSCodeExtension.dev.buildAndOpen({
+    openOnFolder: "/Users/aldo/com.github/redwoodjs/redwood",
+    disableOtherExtensions: false,
   })
 }
 
