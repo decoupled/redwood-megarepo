@@ -4660,10 +4660,10 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-lambdragon@^0.0.43:
-  version "0.0.43"
-  resolved "https://registry.yarnpkg.com/lambdragon/-/lambdragon-0.0.43.tgz#7e2fc1baa43ac2032d83485a150dcd3b64b716ee"
-  integrity sha512-8E2eDg6cvuSY6r4x5+Xb4zCcxlRVdi3m3KZ2NOun3X05Y4uqk97AVpSxn5mBztMZM+IP51TrE/lUYrfo3UwYzg==
+lambdragon@^0.0.47:
+  version "0.0.47"
+  resolved "https://registry.yarnpkg.com/lambdragon/-/lambdragon-0.0.47.tgz#a67fa834aade207ab404f6217e930e01e8765f84"
+  integrity sha512-45vLzPaTFdN913071vPdLG+jYwqKY7ZgXkgnKNFloLO/AkFw+1Tgg6+vQbeRGykRhUnyyeIVVyTAe86jl0R6+A==
   dependencies:
     cote "^1.0.2"
     lazy-get-decorator "^2.1.0"
