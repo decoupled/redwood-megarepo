@@ -3,9 +3,9 @@
 - It will be merged into the Redwood.js codebase once we stabilize the code. For now, it is undergoing massive changes on a daily basis
 
 
-## I want to build and run the Redwood VSCode extension...
+## Contributing
 
-Ok, but keep in mind this is highly experimental and might not work:
+Note: this repo is built using lambdragon, which is highly experimental and unstable at this time.
 
 1. Clone this repo
 2. yarn install
@@ -27,5 +27,6 @@ Click on the playground that looks like this:
 }
 ```
 
-Q: I tried and it doesn't work. Why?
-A: Told you! The thing is, the build tool/extension (lambdragon) and this repo are going through major changes at the same time. So they keep falling out of sync. As soon as both stabilize, this will end. That's the price you pay for having separate repos for projects that are evolving together :)
+Links:
+
+* [lambdragon/issues](https://github.com/decoupled/lambdragon/issues)
