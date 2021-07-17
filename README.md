@@ -29,4 +29,5 @@ Click on the playground that looks like this:
 
 Links:
 
+* [Redwood.js VSCode extension issues](https://github.com/decoupled/redwood-megarepo/issues)
 * [lambdragon/issues](https://github.com/decoupled/lambdragon/issues)
