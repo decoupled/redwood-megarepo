@@ -16,6 +16,7 @@ export const ids = vscode_ids({
     commands: {
       outline: {},
       generate: {},
+      debug: {},
     },
     views: {
       outline: {},
