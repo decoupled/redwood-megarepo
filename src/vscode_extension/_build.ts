@@ -1,7 +1,20 @@
-import { emptyDirSync } from "fs-extra"
 import { crypto_filenameFriendlyHash } from "@decoupled/xlib"
+import { emptyDirSync } from "fs-extra"
+import { VSCE_TOKEN } from "src/secrets"
 import { degit_with_retries } from "src/x/degit/degit_with_retries"
 import { redwoodVSCodeExtension } from "./extension"
+
+{
+  redwoodVSCodeExtension.dev.publish({ marketplaceAuthToken: VSCE_TOKEN })
+}
+
+{
+  redwoodVSCodeExtension.dev.buildAndOpen({
+    openOnFolder:
+      "/Users/aldo/com.github/redwoodjs/redwood_6/my-test-project-ts",
+    disableOtherExtensions: false,
+  })
+}
 
 {
   // the example-blog
