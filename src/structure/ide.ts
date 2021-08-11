@@ -276,7 +276,7 @@ export abstract class FileNode extends BaseNode {
   }
 
   @lazy() get hasJSLikeExtension(): boolean {
-    return [".js", ".jsx", "ts", ".tsx"].includes(extname(this.filePath))
+    return hasJSLikeExtension(this.filePath)
   }
 
   /**
@@ -450,3 +450,11 @@ export class HostWithDocumentsStore implements Host {
     return this.defaultHost.paths
   }
 }
+
+function hasJSLikeExtension(filePath: string): boolean {
+  for (const ext of hasJSLikeExtension_list) {
+    if (filePath.endsWith(ext)) return true
+  }
+  return false
+}
+const hasJSLikeExtension_list = [".js", ".jsx", "ts", ".tsx"]
